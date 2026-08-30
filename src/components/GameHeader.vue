@@ -34,7 +34,7 @@ const emit = defineEmits<{
         </span>
       </div>
 
-      <div class="h-8 inline-flex items-center px-2.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300">
+      <div class="h-8 sm:h-9 inline-flex items-center px-2.5 sm:px-3 rounded-xl bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300 shadow-sm">
         <template v-if="currentLanguage === 'zh-TW'">
           {{ t.round }} <span class="text-amber-400 font-bold mx-0.5">{{ roundNumber }}</span> 局
         </template>
@@ -45,12 +45,12 @@ const emit = defineEmits<{
     </div>
 
     <!-- Match Scores Bar (Hidden on ultra-small screens, visible on md+) -->
-    <div class="hidden md:flex items-center gap-2 bg-slate-900/90 h-8 px-3 rounded-xl border border-white/5 text-xs">
+    <div class="hidden md:inline-flex items-center gap-2 bg-slate-900/90 h-8 sm:h-9 px-3 rounded-xl border border-white/10 text-xs shadow-sm">
       <span class="text-slate-400 font-medium">{{ t.scores }}:</span>
-      <div v-for="(player, idx) in players" :key="player.id" class="flex items-center gap-1">
+      <div v-for="(player, idx) in players" :key="player.id" class="flex items-center gap-1.5">
         <span class="text-slate-300">{{ player.name }}:</span>
         <span
-          class="font-bold font-mono px-1.5 py-0.2 rounded"
+          class="font-bold font-mono px-1.5 py-0.5 rounded text-xs leading-none"
           :class="idx === 0 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-200'"
         >
           {{ matchScores[idx] }}
