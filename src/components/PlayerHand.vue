@@ -67,6 +67,14 @@ const comboGroups = computed<HandComboGroup[]>(() => {
   return partitions[idx];
 });
 
+const multiCardComboGroups = computed(() => {
+  return comboGroups.value.filter((g) => g.type !== 'SINGLE');
+});
+
+const singleComboGroups = computed(() => {
+  return comboGroups.value.filter((g) => g.type === 'SINGLE');
+});
+
 function cycleComboPartition() {
   if (distinctPartitions.value.length > 1) {
     selectedPartitionIndex.value =
@@ -198,55 +206,93 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
       </div>
     </div>
 
-    <!-- Cards Row: Combo Mode (With Hints on Top of each Combo) -->
+    <!-- Cards Container: Combo Mode -->
+    <!-- On screens < md: Row 1 = Multi-card combos, Row 2 = Singles -->
+    <!-- On screens >= md: Inline horizontal row -->
     <div
       v-if="sortMode === 'combo'"
-      class="flex items-center justify-center flex-1 min-h-0 pt-2 sm:pt-6 pb-0.5 sm:pb-2 px-1 sm:px-4 w-full overflow-x-auto overflow-y-visible gap-1.5 sm:gap-3"
+      class="flex flex-col md:flex-row items-center justify-center flex-1 min-h-0 pt-0.5 sm:pt-1 md:pt-4 pb-0.5 sm:pb-1 md:pb-2 px-1 sm:px-4 w-full overflow-x-auto overflow-y-visible gap-1.5 sm:gap-2 md:gap-3"
     >
+      <!-- Multi-Card Combinations (Row 1 on < md) -->
       <div
-        v-for="group in comboGroups"
-        :key="group.id"
-        class="flex flex-col items-center justify-center p-1 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
+        v-if="multiCardComboGroups.length > 0"
+        class="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 max-w-full overflow-x-auto overflow-y-visible flex-shrink-0"
       >
-        <!-- Interactive Hint badge for multi-card combination -->
-        <button
-          v-if="group.type !== 'SINGLE'"
-          @click="handleSelectGroup(group)"
-          class="mb-1 sm:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
-          :class="getGroupBadgeClass(group)"
-          title="點擊全選/取消此組合 / Click to toggle combo selection"
-        >
-          <span>{{ getGroupIcon(group.type) }}</span>
-          <span>{{ getGroupLabel(group) }}</span>
-        </button>
-
-        <!-- Static info badge for singles (non-clickable) -->
         <div
-          v-else
-          class="mb-1 sm:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
-          title="單張請點選個別卡牌 / Click individual cards to play a single"
+          v-for="group in multiCardComboGroups"
+          :key="group.id"
+          class="flex flex-col items-center justify-center p-1 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
         >
-          <span>{{ getGroupIcon(group.type) }}</span>
-          <span>{{ getGroupLabel(group) }}</span>
-        </div>
-
-        <!-- Cards in this combination (Compact overlap showing top-left rank & suit) -->
-        <div class="flex items-center justify-center pt-0.5 px-0.5">
-          <div
-            v-for="(card, cardIdx) in group.cards"
-            :key="card.id"
-            :style="[
-              cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -32px;' : 'margin-left: -26px;') : '',
-              { zIndex: cardIdx + 1 }
-            ]"
-            class="transition-all duration-200"
+          <!-- Interactive Hint badge for multi-card combination -->
+          <button
+            @click="handleSelectGroup(group)"
+            class="mb-0.5 sm:mb-1 md:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
+            :class="getGroupBadgeClass(group)"
+            title="點擊全選/取消此組合 / Click to toggle combo selection"
           >
-            <CardView
-              :card="card"
-              :is-selected="selectedCardIds.has(card.id)"
-              size="md"
-              @click="handleCardClickInGroup(card, group)"
-            />
+            <span>{{ getGroupIcon(group.type) }}</span>
+            <span>{{ getGroupLabel(group) }}</span>
+          </button>
+
+          <!-- Cards in this combination -->
+          <div class="flex items-center justify-center pt-0.5 px-0.5">
+            <div
+              v-for="(card, cardIdx) in group.cards"
+              :key="card.id"
+              :style="[
+                cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -32px;' : 'margin-left: -26px;') : '',
+                { zIndex: cardIdx + 1 }
+              ]"
+              class="transition-all duration-200"
+            >
+              <CardView
+                :card="card"
+                :is-selected="selectedCardIds.has(card.id)"
+                size="md"
+                @click="handleCardClickInGroup(card, group)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Singles Group (Row 2 on < md) -->
+      <div
+        v-if="singleComboGroups.length > 0"
+        class="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 max-w-full overflow-x-auto overflow-y-visible flex-shrink-0"
+      >
+        <div
+          v-for="group in singleComboGroups"
+          :key="group.id"
+          class="flex flex-col items-center justify-center p-1 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
+        >
+          <!-- Static info badge for singles (non-clickable) -->
+          <div
+            class="mb-0.5 sm:mb-1 md:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
+            title="單張請點選個別卡牌 / Click individual cards to play a single"
+          >
+            <span>{{ getGroupIcon(group.type) }}</span>
+            <span>{{ getGroupLabel(group) }}</span>
+          </div>
+
+          <!-- Cards in singles group -->
+          <div class="flex items-center justify-center pt-0.5 px-0.5">
+            <div
+              v-for="(card, cardIdx) in group.cards"
+              :key="card.id"
+              :style="[
+                cardIdx > 0 ? 'margin-left: -26px;' : '',
+                { zIndex: cardIdx + 1 }
+              ]"
+              class="transition-all duration-200"
+            >
+              <CardView
+                :card="card"
+                :is-selected="selectedCardIds.has(card.id)"
+                size="md"
+                @click="handleCardClickInGroup(card, group)"
+              />
+            </div>
           </div>
         </div>
       </div>
