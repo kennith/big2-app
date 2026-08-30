@@ -282,73 +282,111 @@ export interface HandComboGroup {
  * 3. Pairs
  * 4. Remaining Singles
  */
-export function partitionHandByCombos(cards: Card[]): HandComboGroup[] {
+export function partitionHandByCombos(
+  cards: Card[],
+  strategy: 'default' | 'pairs_triples' | 'straights' | 'flushes' | 'full_house' = 'default'
+): HandComboGroup[] {
   let pool = sortCardsByRank([...cards]);
   const groups: HandComboGroup[] = [];
   let groupId = 0;
 
-  // Step 1: Extract best 5-card combinations while pool has >= 5 cards
-  while (pool.length >= 5) {
-    const allCombos = findAllCombos(pool);
-    const fiveCardCombos = allCombos.filter((c) => c.cards.length === 5);
-    if (fiveCardCombos.length === 0) break;
+  const extract5CardCombos = (filterType?: (c: HandCombo) => boolean) => {
+    while (pool.length >= 5) {
+      const allCombos = findAllCombos(pool);
+      let fiveCardCombos = allCombos.filter((c) => c.cards.length === 5);
+      if (filterType) {
+        fiveCardCombos = fiveCardCombos.filter(filterType);
+      }
+      if (fiveCardCombos.length === 0) break;
 
-    // Pick highest tier 5-card combo (Straight Flush > Quad > Full House > Flush > Straight)
-    fiveCardCombos.sort((a, b) => {
-      const tierDiff = FIVE_CARD_TIERS[b.type] - FIVE_CARD_TIERS[a.type];
-      if (tierDiff !== 0) return tierDiff;
-      return b.rankValue - a.rankValue;
-    });
+      fiveCardCombos.sort((a, b) => {
+        const tierDiff = FIVE_CARD_TIERS[b.type] - FIVE_CARD_TIERS[a.type];
+        if (tierDiff !== 0) return tierDiff;
+        return b.rankValue - a.rankValue;
+      });
 
-    const bestCombo = fiveCardCombos[0];
-    const comboCardIds = new Set(bestCombo.cards.map((c) => c.id));
-    const sortedCards = sortCardsByRank(bestCombo.cards);
-    groups.push({
-      id: `group-${groupId++}`,
-      type: bestCombo.type,
-      combo: bestCombo,
-      cards: sortedCards,
-    });
-    pool = pool.filter((c) => !comboCardIds.has(c.id));
-  }
-
-  // Step 2: Extract Triples from remaining cards
-  const rankGroupsForTriples = groupByRank(pool);
-  for (const [_, groupCards] of rankGroupsForTriples) {
-    if (groupCards.length >= 3) {
-      const tripleCards = groupCards.slice(0, 3);
-      const tripleIds = new Set(tripleCards.map((c) => c.id));
-      const sortedTriple = sortCardsByRank(tripleCards);
-      const combo = identifyCombo(sortedTriple);
+      const bestCombo = fiveCardCombos[0];
+      const comboCardIds = new Set(bestCombo.cards.map((c) => c.id));
+      const sortedCards = sortCardsByRank(bestCombo.cards);
       groups.push({
         id: `group-${groupId++}`,
-        type: 'TRIPLE',
-        combo,
-        cards: sortedTriple,
+        type: bestCombo.type,
+        combo: bestCombo,
+        cards: sortedCards,
       });
-      pool = pool.filter((c) => !tripleIds.has(c.id));
+      pool = pool.filter((c) => !comboCardIds.has(c.id));
     }
+  };
+
+  const extractTriples = () => {
+    const rankGroups = groupByRank(pool);
+    for (const [_, groupCards] of rankGroups) {
+      if (groupCards.length >= 3) {
+        const tripleCards = groupCards.slice(0, 3);
+        const tripleIds = new Set(tripleCards.map((c) => c.id));
+        const sortedTriple = sortCardsByRank(tripleCards);
+        const combo = identifyCombo(sortedTriple);
+        groups.push({
+          id: `group-${groupId++}`,
+          type: 'TRIPLE',
+          combo,
+          cards: sortedTriple,
+        });
+        pool = pool.filter((c) => !tripleIds.has(c.id));
+      }
+    }
+  };
+
+  const extractPairs = () => {
+    const rankGroups = groupByRank(pool);
+    for (const [_, groupCards] of rankGroups) {
+      if (groupCards.length >= 2) {
+        const pairCards = groupCards.slice(0, 2);
+        const pairIds = new Set(pairCards.map((c) => c.id));
+        const sortedPair = sortCardsByRank(pairCards);
+        const combo = identifyCombo(sortedPair);
+        groups.push({
+          id: `group-${groupId++}`,
+          type: 'PAIR',
+          combo,
+          cards: sortedPair,
+        });
+        pool = pool.filter((c) => !pairIds.has(c.id));
+      }
+    }
+  };
+
+  if (strategy === 'pairs_triples') {
+    // Triples and pairs prioritized first
+    extractTriples();
+    extractPairs();
+    extract5CardCombos();
+  } else if (strategy === 'straights') {
+    // Straights / Straight flushes prioritized first
+    extract5CardCombos((c) => c.type === 'STRAIGHT' || c.type === 'STRAIGHT_FLUSH');
+    extractTriples();
+    extractPairs();
+    extract5CardCombos();
+  } else if (strategy === 'flushes') {
+    // Flushes prioritized first
+    extract5CardCombos((c) => c.type === 'FLUSH' || c.type === 'STRAIGHT_FLUSH');
+    extractTriples();
+    extractPairs();
+    extract5CardCombos();
+  } else if (strategy === 'full_house') {
+    // Full houses prioritized first
+    extract5CardCombos((c) => c.type === 'FULL_HOUSE');
+    extractTriples();
+    extractPairs();
+    extract5CardCombos();
+  } else {
+    // Default: Best 5-card combinations first
+    extract5CardCombos();
+    extractTriples();
+    extractPairs();
   }
 
-  // Step 3: Extract Pairs from remaining cards
-  const rankGroupsForPairs = groupByRank(pool);
-  for (const [_, groupCards] of rankGroupsForPairs) {
-    if (groupCards.length >= 2) {
-      const pairCards = groupCards.slice(0, 2);
-      const pairIds = new Set(pairCards.map((c) => c.id));
-      const sortedPair = sortCardsByRank(pairCards);
-      const combo = identifyCombo(sortedPair);
-      groups.push({
-        id: `group-${groupId++}`,
-        type: 'PAIR',
-        combo,
-        cards: sortedPair,
-      });
-      pool = pool.filter((c) => !pairIds.has(c.id));
-    }
-  }
-
-  // Step 4: Remaining are singles
+  // Remaining are singles
   if (pool.length > 0) {
     const sortedSingles = sortCardsByRank(pool);
     groups.push({
@@ -360,6 +398,37 @@ export function partitionHandByCombos(cards: Card[]): HandComboGroup[] {
   }
 
   return groups;
+}
+
+/**
+ * Returns all distinct valid combination partitioning arrangements for a hand of cards.
+ */
+export function getDistinctComboPartitions(cards: Card[]): HandComboGroup[][] {
+  const strategies: Array<'default' | 'pairs_triples' | 'straights' | 'flushes' | 'full_house'> = [
+    'default',
+    'pairs_triples',
+    'straights',
+    'flushes',
+    'full_house',
+  ];
+
+  const results: HandComboGroup[][] = [];
+  const seenSignatures = new Set<string>();
+
+  for (const strat of strategies) {
+    const partition = partitionHandByCombos(cards, strat);
+    // Build unique signature: e.g. "FULL_HOUSE:4-D,4-C,4-H,5-D,5-C|PAIR:8-D,8-C"
+    const sig = partition
+      .map((g) => `${g.type}:${g.cards.map((c) => c.id).sort().join(',')}`)
+      .join('|');
+
+    if (!seenSignatures.has(sig)) {
+      seenSignatures.add(sig);
+      results.push(partition);
+    }
+  }
+
+  return results.length > 0 ? results : [partitionHandByCombos(cards, 'default')];
 }
 
 /**

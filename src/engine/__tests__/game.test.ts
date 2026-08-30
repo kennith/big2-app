@@ -3,6 +3,7 @@ import { getBotMove } from '../ai';
 import {
   checkFlush,
   findAllCombos,
+  getDistinctComboPartitions,
   identifyCombo,
   partitionHandByCombos,
   sortCardsByCombo,
@@ -225,6 +226,34 @@ describe('Combo Identification', () => {
     expect(groups[1].cards.length).toBe(5);
     expect(groups[2].type).toBe('SINGLE');
     expect(groups[2].cards.length).toBe(3);
+  });
+
+  it('generates multiple distinct combination partitions for hands with alternative interpretations', () => {
+    // Hand containing cards that can form a Straight OR Triples + Pairs:
+    // 4D, 4C, 4H, 5D, 6D, 7D, 8D, 10D, 10S, JC, JH, JS, 2S
+    const multiComboHand: Card[] = [
+      { id: '4-D', rank: '4', suit: 'D' },
+      { id: '4-C', rank: '4', suit: 'C' },
+      { id: '4-H', rank: '4', suit: 'H' },
+      { id: '5-D', rank: '5', suit: 'D' },
+      { id: '6-D', rank: '6', suit: 'D' },
+      { id: '7-D', rank: '7', suit: 'D' },
+      { id: '8-D', rank: '8', suit: 'D' },
+      { id: '10-D', rank: '10', suit: 'D' },
+      { id: '10-S', rank: '10', suit: 'S' },
+      { id: 'J-C', rank: 'J', suit: 'C' },
+      { id: 'J-H', rank: 'J', suit: 'H' },
+      { id: 'J-S', rank: 'J', suit: 'S' },
+      { id: '2-S', rank: '2', suit: 'S' },
+    ];
+
+    const partitions = getDistinctComboPartitions(multiComboHand);
+    expect(partitions.length).toBeGreaterThan(1);
+    // Ensure all partitions account for all 13 cards
+    for (const part of partitions) {
+      const cardCount = part.reduce((sum, g) => sum + g.cards.length, 0);
+      expect(cardCount).toBe(13);
+    }
   });
 });
 

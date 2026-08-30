@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { type HandComboGroup, partitionHandByCombos } from '../engine/combos';
+import { computed, ref, watch } from 'vue';
+import { type HandComboGroup, getDistinctComboPartitions } from '../engine/combos';
 import type { Card } from '../engine/types';
 import type { Language, Translations } from '../i18n/translations';
 import CardView from './CardView.vue';
@@ -39,11 +39,39 @@ const currentSortLabel = computed(() => {
   return props.t.combo;
 });
 
-// Combination groupings when in combo sort mode
+// Distinct valid combination partitioning options for current hand
+const distinctPartitions = computed<HandComboGroup[][]>(() => {
+  if (props.sortMode !== 'combo') return [];
+  return getDistinctComboPartitions(props.hand);
+});
+
+const selectedPartitionIndex = ref(0);
+
+// Reset partition index if hand changes and index is out of bounds
+watch(
+  () => props.hand,
+  () => {
+    if (selectedPartitionIndex.value >= distinctPartitions.value.length) {
+      selectedPartitionIndex.value = 0;
+    }
+  }
+);
+
+// Active combination groupings for selected layout
 const comboGroups = computed<HandComboGroup[]>(() => {
   if (props.sortMode !== 'combo') return [];
-  return partitionHandByCombos(props.hand);
+  const partitions = distinctPartitions.value;
+  if (partitions.length === 0) return [];
+  const idx = selectedPartitionIndex.value % partitions.length;
+  return partitions[idx];
 });
+
+function cycleComboPartition() {
+  if (distinctPartitions.value.length > 1) {
+    selectedPartitionIndex.value =
+      (selectedPartitionIndex.value + 1) % distinctPartitions.value.length;
+  }
+}
 
 function getGroupLabel(group: HandComboGroup): string {
   switch (group.type) {
@@ -83,15 +111,14 @@ function getGroupIcon(type: string): string {
       return '☘️';
     case 'PAIR':
       return '👥';
-    case 'SINGLE':
     default:
       return '🃏';
   }
 }
 
 function getGroupBadgeClass(group: HandComboGroup): string {
-  const allSelected = group.cards.every((c) => props.selectedCardIds.has(c.id));
-  const base = allSelected
+  const isSelected = group.cards.every((c) => props.selectedCardIds.has(c.id));
+  const base = isSelected
     ? 'ring-2 ring-amber-400 font-extrabold shadow-amber-500/40 '
     : 'opacity-90 hover:opacity-100 ';
 
@@ -110,7 +137,6 @@ function getGroupBadgeClass(group: HandComboGroup): string {
       return base + 'bg-indigo-600/90 text-white border border-indigo-300';
     case 'PAIR':
       return base + 'bg-teal-600/90 text-white border border-teal-300';
-    case 'SINGLE':
     default:
       return 'bg-slate-800 text-slate-400 border border-slate-700 cursor-default opacity-80';
   }
@@ -139,14 +165,28 @@ function handleSelectGroup(group: HandComboGroup) {
         </span>
       </div>
 
-      <button
-        @click="emit('toggleSort')"
-        class="flex items-center gap-1 px-2.5 py-0.5 sm:py-1 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-slate-700 text-[11px] sm:text-xs text-amber-300 font-medium shadow-sm cursor-pointer"
-        title="Change card sorting"
-      >
-        <span>{{ t.sort }}:</span>
-        <span class="font-bold text-white">{{ currentSortLabel }}</span>
-      </button>
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <!-- Cycle Combo Layout button (shown when in combo sort mode and multiple combination layouts exist) -->
+        <button
+          v-if="sortMode === 'combo' && distinctPartitions.length > 1"
+          @click="cycleComboPartition"
+          class="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 active:scale-95 transition-all border border-amber-500/50 text-[11px] sm:text-xs text-amber-300 font-bold shadow-sm cursor-pointer"
+          :title="t.switchComboLayout"
+        >
+          <span class="text-xs">🔀</span>
+          <span>{{ t.comboLayout }} {{ selectedPartitionIndex + 1 }}/{{ distinctPartitions.length }}</span>
+        </button>
+
+        <!-- Sort Mode Toggle Button -->
+        <button
+          @click="emit('toggleSort')"
+          class="flex items-center gap-1 px-2.5 py-0.5 sm:py-1 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-slate-700 text-[11px] sm:text-xs text-amber-300 font-medium shadow-sm cursor-pointer"
+          title="Change card sorting"
+        >
+          <span>{{ t.sort }}:</span>
+          <span class="font-bold text-white">{{ currentSortLabel }}</span>
+        </button>
+      </div>
     </div>
 
     <!-- Cards Row: Combo Mode (With Hints on Top of each Combo) -->

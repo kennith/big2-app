@@ -46,6 +46,8 @@ export interface Translations {
   rank: string;
   suit: string;
   combo: string;
+  comboLayout: string;
+  switchComboLayout: string;
   lastCard: string;
   cardsLeftAlert: string;
   waitingForTurn: string;
@@ -173,6 +175,8 @@ export const translations: Record<Language, Translations> = {
     rank: 'Rank',
     suit: 'Suit',
     combo: 'Combinations',
+    comboLayout: 'Layout',
+    switchComboLayout: 'Switch Combination Layout',
     lastCard: 'LAST CARD!',
     cardsLeftAlert: 'LEFT!',
     waitingForTurn: 'Waiting for Turn...',
@@ -298,6 +302,8 @@ export const translations: Record<Language, Translations> = {
     rank: '點數',
     suit: '花色',
     combo: '牌型組合',
+    comboLayout: '組合排列',
+    switchComboLayout: '切換組合排列方式',
     lastCard: '最後一張！',
     cardsLeftAlert: '張！',
     waitingForTurn: '等待其他玩家...',
