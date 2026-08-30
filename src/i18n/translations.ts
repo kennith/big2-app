@@ -257,7 +257,7 @@ export const translations: Record<Language, Translations> = {
     },
   },
   'zh-TW': {
-    gameTitle: '大老二 (鋤大D)',
+    gameTitle: '鋤大D',
     round: '第',
     scores: '目前比分',
     rules: '規則說明',
