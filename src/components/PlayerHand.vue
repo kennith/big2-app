@@ -141,12 +141,12 @@ function handleSelectGroup(group: HandComboGroup) {
     <!-- Cards Row: Combo Mode (With Hints on Top of each Combo) -->
     <div
       v-if="sortMode === 'combo'"
-      class="flex items-end justify-center flex-1 min-h-0 pt-0.5 pb-0.5 px-1 w-full overflow-x-auto gap-1.5 sm:gap-3"
+      class="flex items-center justify-center flex-1 min-h-0 pt-2 sm:pt-6 pb-0.5 sm:pb-2 px-1 sm:px-4 w-full overflow-x-auto overflow-y-visible gap-1.5 sm:gap-3"
     >
       <div
         v-for="group in comboGroups"
         :key="group.id"
-        class="flex flex-col items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
+        class="flex flex-col items-center justify-center p-1 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
       >
         <!-- Interactive Hint badge for multi-card combination -->
         <button
