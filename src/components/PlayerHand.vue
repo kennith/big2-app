@@ -24,12 +24,14 @@ const emit = defineEmits<{
 }>();
 
 // Dynamic negative overlap margin based on number of cards in hand
+// Ensures cards fill the entire row when full (13 cards), while never separating wider than center cards
 const overlapMargin = computed(() => {
   const count = props.hand.length;
-  if (count <= 4) return 'margin-left: 3px; margin-right: 3px;';
-  if (count <= 7) return 'margin-left: -14px;';
-  if (count <= 10) return 'margin-left: -22px;';
-  return 'margin-left: -32px;';
+  if (count <= 3) return 'margin-left: -8px;';
+  if (count <= 5) return 'margin-left: -12px;';
+  if (count <= 8) return 'margin-left: -16px;';
+  if (count <= 11) return 'margin-left: -20px;';
+  return 'margin-left: -24px;';
 });
 
 const currentSortLabel = computed(() => {
