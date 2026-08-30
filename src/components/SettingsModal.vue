@@ -1,25 +1,48 @@
 <script setup lang="ts">
-import type { GameSettings } from '../engine/types';
+import { computed } from 'vue';
+import type { BotPersonality, GameSettings, Player } from '../engine/types';
 import type { Language, Translations } from '../i18n/translations';
 import type { PlayerStats } from '../services/storage';
 
 interface Props {
   settings: GameSettings;
+  players: Player[];
   stats: PlayerStats;
   t: Translations;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'close'): void;
   (e: 'setLanguage', lang: Language): void;
+  (e: 'setBotPersonality', botId: string, personality: BotPersonality): void;
 }>();
+
+const botPlayers = computed(() => props.players.filter((p) => !p.isHuman));
+
+function applyPreset(presetMap: Record<string, BotPersonality>) {
+  for (const [botId, personality] of Object.entries(presetMap)) {
+    emit('setBotPersonality', botId, personality);
+  }
+}
+
+function getPersonalityActiveClass(pType: BotPersonality): string {
+  switch (pType) {
+    case 'aggressive':
+      return 'bg-red-500 text-white border-red-400 font-bold shadow-sm';
+    case 'cautious':
+      return 'bg-blue-600 text-white border-blue-400 font-bold shadow-sm';
+    case 'balanced':
+    default:
+      return 'bg-amber-500 text-slate-950 border-amber-300 font-bold shadow-sm';
+  }
+}
 </script>
 
 <template>
   <div class="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-    <!-- Max height container locked to viewport with inner scrolling for iPhone SE compatibility -->
+    <!-- Max height container locked to viewport with inner scrolling for mobile compatibility -->
     <div class="w-full max-w-md max-h-[92dvh] bg-slate-900 border border-slate-700 rounded-3xl p-4 sm:p-6 shadow-2xl flex flex-col gap-3 sm:gap-4 text-slate-200 min-h-0">
       <!-- Modal Header (Fixed) -->
       <div class="flex items-center justify-between pb-2 border-b border-slate-800 flex-shrink-0">
@@ -68,6 +91,63 @@ const emit = defineEmits<{
               <span>🇺🇸 / 🇬🇧</span>
               <span>English</span>
             </button>
+          </div>
+        </div>
+
+        <!-- Opponent Play Styles / Personalities Section -->
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-slate-800/80 border border-slate-700/60 space-y-2.5">
+          <div>
+            <div class="font-semibold text-slate-100 flex items-center gap-1.5">
+              <span>🤖</span>
+              <span>{{ t.opponentPlaystyles }}</span>
+            </div>
+            <div class="text-slate-400 text-xs mt-0.5">{{ t.opponentPlaystylesDesc }}</div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+            <button
+              v-for="preset in [
+                { key: 'mixed', label: t.presetMixed, map: { 'bot-1': 'aggressive' as const, 'bot-2': 'balanced' as const, 'bot-3': 'cautious' as const } },
+                { key: 'aggressive', label: t.presetAllAggressive, map: { 'bot-1': 'aggressive' as const, 'bot-2': 'aggressive' as const, 'bot-3': 'aggressive' as const } },
+                { key: 'balanced', label: t.presetAllBalanced, map: { 'bot-1': 'balanced' as const, 'bot-2': 'balanced' as const, 'bot-3': 'balanced' as const } },
+                { key: 'cautious', label: t.presetAllCautious, map: { 'bot-1': 'cautious' as const, 'bot-2': 'cautious' as const, 'bot-3': 'cautious' as const } },
+              ]"
+              :key="preset.key"
+              @click="applyPreset(preset.map)"
+              class="py-1 px-1.5 rounded-lg border text-[10px] sm:text-[11px] font-medium transition text-center cursor-pointer bg-slate-900/60 hover:bg-slate-700 border-slate-700 text-slate-300 active:scale-95"
+            >
+              {{ preset.label }}
+            </button>
+          </div>
+
+          <!-- Individual Opponents Customization -->
+          <div class="space-y-2 pt-1.5 border-t border-slate-700/50">
+            <div
+              v-for="bot in botPlayers"
+              :key="bot.id"
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 p-2 rounded-xl bg-slate-900/60 border border-slate-800"
+            >
+              <div class="flex items-center gap-2">
+                <span class="text-lg">{{ bot.avatar }}</span>
+                <span class="font-bold text-xs text-slate-200">{{ bot.name }}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1">
+                <button
+                  v-for="pType in (['aggressive', 'balanced', 'cautious'] as const)"
+                  :key="pType"
+                  @click="emit('setBotPersonality', bot.id, pType)"
+                  class="py-1 px-2 rounded-lg border text-[10px] sm:text-xs font-bold transition flex items-center justify-center cursor-pointer active:scale-95"
+                  :class="
+                    (settings.botPersonalities?.[bot.id] || bot.personality) === pType
+                      ? getPersonalityActiveClass(pType)
+                      : 'bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700'
+                  "
+                >
+                  {{ t.personalities[pType] }}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

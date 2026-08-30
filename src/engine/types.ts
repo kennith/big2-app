@@ -55,6 +55,7 @@ export interface GameSettings {
   gameSpeedMs: number; // Bot delay in ms (e.g. 800ms)
   autoPass: boolean; // Auto pass when human has no valid moves
   sortMode: 'rank' | 'suit' | 'combo';
+  botPersonalities: Record<string, BotPersonality>;
 }
 
 export interface GameHistoryEntry {

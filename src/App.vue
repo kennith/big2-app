@@ -48,6 +48,7 @@ const {
   toggleSortMode,
   toggleLanguage,
   setLanguage,
+  setBotPersonality,
 } = useBigTwo();
 
 const showRulesModal = ref(false);
@@ -264,9 +265,11 @@ onBeforeUnmount(() => {
     <SettingsModal
       v-if="showSettingsModal"
       :settings="settings"
+      :players="players"
       :stats="stats"
       :t="t"
       @set-language="setLanguage"
+      @set-bot-personality="setBotPersonality"
       @close="showSettingsModal = false"
     />
 

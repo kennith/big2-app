@@ -12,6 +12,7 @@ import {
 } from '../engine/deck';
 import { calculateRoundScores, validatePlay } from '../engine/evaluator';
 import type {
+  BotPersonality,
   Card,
   GameHistoryEntry,
   GameSettings,
@@ -70,7 +71,7 @@ export function useBigTwo() {
       isHuman: false,
       hand: [],
       position: 'left',
-      personality: 'aggressive',
+      personality: settings.value.botPersonalities?.['bot-1'] || 'aggressive',
     },
     {
       id: 'bot-2',
@@ -79,7 +80,7 @@ export function useBigTwo() {
       isHuman: false,
       hand: [],
       position: 'top',
-      personality: 'balanced',
+      personality: settings.value.botPersonalities?.['bot-2'] || 'balanced',
     },
     {
       id: 'bot-3',
@@ -88,7 +89,7 @@ export function useBigTwo() {
       isHuman: false,
       hand: [],
       position: 'right',
-      personality: 'cautious',
+      personality: settings.value.botPersonalities?.['bot-3'] || 'cautious',
     },
   ]);
 
@@ -99,6 +100,32 @@ export function useBigTwo() {
     players.value[2].name = lang === 'zh-TW' ? '小美 (Bella)' : 'Bella';
     players.value[3].name = lang === 'zh-TW' ? '阿明 (Charlie)' : 'Charlie';
   });
+
+  // Sync bot personalities from settings
+  watch(
+    () => settings.value.botPersonalities,
+    (newPersonalities) => {
+      if (newPersonalities) {
+        players.value.forEach((p) => {
+          if (newPersonalities[p.id]) {
+            p.personality = newPersonalities[p.id];
+          }
+        });
+      }
+    },
+    { deep: true }
+  );
+
+  function setBotPersonality(botId: string, personality: BotPersonality) {
+    settings.value.botPersonalities = {
+      ...settings.value.botPersonalities,
+      [botId]: personality,
+    };
+    const player = players.value.find((p) => p.id === botId);
+    if (player) {
+      player.personality = personality;
+    }
+  }
 
   const lastAction = ref<{
     playerIndex: number;
@@ -656,6 +683,7 @@ export function useBigTwo() {
     toggleSortMode,
     toggleLanguage,
     setLanguage,
+    setBotPersonality,
     sortHumanHand,
   };
 }

@@ -21,6 +21,12 @@ export interface Translations {
   relaxed: string;
   autoPass: string;
   autoPassDesc: string;
+  opponentPlaystyles: string;
+  opponentPlaystylesDesc: string;
+  presetAllAggressive: string;
+  presetAllBalanced: string;
+  presetAllCautious: string;
+  presetMixed: string;
   careerStats: string;
   roundsPlayed: string;
   roundsWon: string;
@@ -150,6 +156,12 @@ export const translations: Record<Language, Translations> = {
     relaxed: 'Relaxed',
     autoPass: 'Auto-Pass',
     autoPassDesc: 'Automatically pass if you have no playable moves',
+    opponentPlaystyles: 'Opponent Play Styles',
+    opponentPlaystylesDesc: 'Customize the strategy and personality of each AI player',
+    presetAllAggressive: 'All Aggressive',
+    presetAllBalanced: 'All Balanced',
+    presetAllCautious: 'All Cautious',
+    presetMixed: 'Mixed (Default)',
     careerStats: 'Match History Stats',
     roundsPlayed: 'Rounds Played:',
     roundsWon: 'Rounds Won:',
@@ -277,6 +289,12 @@ export const translations: Record<Language, Translations> = {
     relaxed: '休閒',
     autoPass: '無牌自動跳過',
     autoPassDesc: '當手中無可壓制牌型時自動 Pass',
+    opponentPlaystyles: '對手風格設定',
+    opponentPlaystylesDesc: '自訂每位電腦對手的出牌策略與性格風格',
+    presetAllAggressive: '全進攻型',
+    presetAllBalanced: '全均衡型',
+    presetAllCautious: '全防守型',
+    presetMixed: '多元對手 (預設)',
     careerStats: '生涯戰績統計',
     roundsPlayed: '總對局數：',
     roundsWon: '勝場數：',

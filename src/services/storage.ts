@@ -20,6 +20,11 @@ export const DEFAULT_SETTINGS: GameSettings = {
   gameSpeedMs: 700,
   autoPass: false,
   sortMode: 'rank',
+  botPersonalities: {
+    'bot-1': 'aggressive',
+    'bot-2': 'balanced',
+    'bot-3': 'cautious',
+  },
 };
 
 export const DEFAULT_STATS: PlayerStats = {
@@ -35,7 +40,15 @@ export function loadSettings(): GameSettings {
   try {
     const raw = localStorage.getItem(SETTINGS_KEY);
     if (raw) {
-      return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
+      const parsed = JSON.parse(raw);
+      return {
+        ...DEFAULT_SETTINGS,
+        ...parsed,
+        botPersonalities: {
+          ...DEFAULT_SETTINGS.botPersonalities,
+          ...(parsed.botPersonalities || {}),
+        },
+      };
     }
   } catch (e) {
     console.warn('Failed to load settings from storage', e);
