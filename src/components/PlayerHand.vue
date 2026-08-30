@@ -99,11 +99,12 @@ function getGroupBadgeClass(group: HandComboGroup): string {
       return base + 'bg-teal-600/90 text-white border border-teal-300';
     case 'SINGLE':
     default:
-      return base + 'bg-slate-800 text-slate-200 border border-slate-700';
+      return 'bg-slate-800 text-slate-400 border border-slate-700 cursor-default opacity-80';
   }
 }
 
 function handleSelectGroup(group: HandComboGroup) {
+  if (group.type === 'SINGLE') return; // Cannot select multiple singles as a combo play
   emit('toggleGroup', group.cards);
 }
 </script>
@@ -145,16 +146,27 @@ function handleSelectGroup(group: HandComboGroup) {
         :key="group.id"
         class="flex flex-col items-center p-1.5 rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
       >
-        <!-- Hint badge on top of combination -->
+        <!-- Interactive Hint badge for multi-card combination -->
         <button
+          v-if="group.type !== 'SINGLE'"
           @click="handleSelectGroup(group)"
           class="mb-2 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
           :class="getGroupBadgeClass(group)"
-          title="點擊全選/取消此組合 / Click to toggle selection"
+          title="點擊全選/取消此組合 / Click to toggle combo selection"
         >
           <span>{{ getGroupIcon(group.type) }}</span>
           <span>{{ getGroupLabel(group) }}</span>
         </button>
+
+        <!-- Static info badge for singles (non-clickable) -->
+        <div
+          v-else
+          class="mb-2 px-2.5 py-0.5 rounded-full text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
+          title="單張請點選個別卡牌 / Click individual cards to play a single"
+        >
+          <span>{{ getGroupIcon(group.type) }}</span>
+          <span>{{ getGroupLabel(group) }}</span>
+        </div>
 
         <!-- Cards in this combination -->
         <div class="flex items-center justify-center pt-1 px-1">
