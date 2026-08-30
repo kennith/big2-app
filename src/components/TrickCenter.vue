@@ -27,8 +27,8 @@ const localizedTrickComboName = computed(() => {
 
 <template>
   <div class="relative flex flex-col items-center justify-center min-h-[170px] sm:min-h-[200px] w-full max-w-xl mx-auto px-4 py-2">
-    <!-- Felt Table Center Halo Glow -->
-    <div class="absolute inset-0 rounded-3xl bg-emerald-900/30 border border-emerald-500/20 backdrop-blur-sm pointer-events-none shadow-felt-inner"></div>
+    <!-- Center Play Field Backdrop -->
+    <div class="absolute inset-0 rounded-3xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm pointer-events-none shadow-inner"></div>
 
     <!-- Active Played Cards -->
     <div v-if="hasActiveTrick && currentTrick" class="relative z-10 flex flex-col items-center gap-3">

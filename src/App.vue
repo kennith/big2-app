@@ -89,11 +89,8 @@ function handleResetGame() {
 
     <!-- Main Poker Table Arena -->
     <main class="flex-1 flex flex-col justify-between p-2 sm:p-4 max-w-7xl w-full mx-auto relative overflow-hidden">
-      <!-- Felt Table Background with Wood Rim -->
-      <div class="absolute inset-2 sm:inset-4 rounded-[40px] felt-texture border-8 border-table-wood shadow-2xl shadow-black/80 pointer-events-none -z-0">
-        <!-- Inner Gold Inlay Trim -->
-        <div class="w-full h-full rounded-[32px] border border-amber-500/20 shadow-felt-inner"></div>
-      </div>
+      <!-- Subtle Clean Arena Backdrop -->
+      <div class="absolute inset-2 sm:inset-4 rounded-3xl bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
 
       <!-- Top Section: North Opponent (Bella / 小美) -->
       <div class="relative z-10 flex justify-center pt-3 sm:pt-8">
