@@ -76,7 +76,7 @@ const playButtonText = computed(() => {
         class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition-all shadow cursor-pointer inline-flex items-center gap-1.5"
         title="清除選牌 / Clear Selection (C / Esc)"
       >
-        <span>{{ t.clear }} ({{ selectedCount }})</span>
+        <span>{{ t.clear }}</span>
         <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-slate-300">C</kbd>
       </button>
 
