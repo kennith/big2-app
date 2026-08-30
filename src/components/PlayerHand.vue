@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import { type HandComboGroup, partitionHandByCombos } from '../engine/combos';
 import type { Card } from '../engine/types';
-import { formatComboDisplayName } from '../i18n/formatters';
 import type { Language, Translations } from '../i18n/translations';
 import CardView from './CardView.vue';
 
@@ -47,13 +46,25 @@ const comboGroups = computed<HandComboGroup[]>(() => {
 });
 
 function getGroupLabel(group: HandComboGroup): string {
-  if (group.combo) {
-    return formatComboDisplayName(group.combo, props.currentLanguage);
+  switch (group.type) {
+    case 'STRAIGHT_FLUSH':
+      return props.t.combos.straightFlush;
+    case 'QUAD':
+      return props.t.combos.quad;
+    case 'FULL_HOUSE':
+      return props.t.combos.fullHouse;
+    case 'FLUSH':
+      return props.t.combos.flush;
+    case 'STRAIGHT':
+      return props.t.combos.straight;
+    case 'TRIPLE':
+      return props.t.combos.triple;
+    case 'PAIR':
+      return props.t.combos.pair;
+    case 'SINGLE':
+    default:
+      return props.t.combos.single;
   }
-  if (props.currentLanguage === 'zh-TW') {
-    return `單張 (${group.cards.length}張)`;
-  }
-  return `Singles (${group.cards.length})`;
 }
 
 function getGroupIcon(type: string): string {
