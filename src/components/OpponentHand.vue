@@ -41,10 +41,11 @@ const personalityColor = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-full max-w-[125px] sm:max-w-[145px]">
+  <!-- Fixed width container ensuring identical sizing across North, West, and East opponents -->
+  <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[130px] sm:w-[150px] flex-shrink-0">
     <!-- Player Profile Card -->
     <div
-      class="flex flex-col items-center p-2 rounded-2xl backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full"
+      class="flex flex-col items-center justify-between p-2 rounded-2xl backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[142px] sm:min-h-[150px]"
       :class="[
         isActive
           ? 'border-amber-400 ring-2 ring-amber-400/50 shadow-amber-500/20 scale-105'
@@ -52,6 +53,7 @@ const personalityColor = computed(() => {
         isLowCards ? 'border-red-500/60 ring-2 ring-red-500/30' : '',
       ]"
     >
+      <!-- Avatar with cards badge -->
       <div class="relative">
         <div
           class="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-800 border-2 flex items-center justify-center text-2xl sm:text-3xl shadow-inner relative"
@@ -76,7 +78,7 @@ const personalityColor = computed(() => {
       </div>
 
       <!-- Player Name & Stats -->
-      <div class="mt-1 text-center w-full overflow-hidden">
+      <div class="my-0.5 text-center w-full overflow-hidden">
         <div class="font-bold text-xs sm:text-sm text-slate-100 truncate px-0.5">
           {{ player.name }}
         </div>
@@ -94,16 +96,18 @@ const personalityColor = computed(() => {
       </div>
 
       <!-- Turn / Thinking / Action Bubble -->
-      <div v-if="isActive && isThinking" class="mt-1 flex items-center justify-center gap-1 text-[11px] text-amber-300 font-medium">
-        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
-        <span>{{ t.thinking }}</span>
-      </div>
+      <div class="min-h-[22px] flex items-center justify-center w-full">
+        <div v-if="isActive && isThinking" class="flex items-center justify-center gap-1 text-[11px] text-amber-300 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+          <span>{{ t.thinking }}</span>
+        </div>
 
-      <div
-        v-else-if="lastActionText"
-        class="mt-1 text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-200 truncate max-w-full text-center"
-      >
-        {{ lastActionText }}
+        <div
+          v-else-if="lastActionText"
+          class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-200 truncate max-w-full text-center"
+        >
+          {{ lastActionText }}
+        </div>
       </div>
     </div>
 
