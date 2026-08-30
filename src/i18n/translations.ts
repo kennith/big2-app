@@ -207,7 +207,7 @@ export const translations: Record<Language, Translations> = {
     },
     combos: {
       single: 'Single',
-      pair: 'Pair of',
+      pair: 'Pair',
       triple: 'Triple',
       straight: 'Straight',
       flush: 'Flush',
