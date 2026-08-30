@@ -33,12 +33,24 @@ const suitSymbol = computed(() => {
 const sizeClasses = computed(() => {
   switch (props.size) {
     case 'sm':
-      return 'w-10 h-14 text-xs rounded-md shadow';
+      return 'w-10 h-14 text-xs shadow';
     case 'lg':
-      return 'w-20 h-28 sm:w-24 sm:h-34 text-base rounded-xl shadow-xl';
+      return 'w-20 h-28 sm:w-24 sm:h-34 text-base shadow-xl';
     case 'md':
     default:
-      return 'w-14 h-20 sm:w-18 sm:h-26 md:w-20 md:h-28 text-sm rounded-lg shadow-md';
+      return 'w-14 h-20 sm:w-18 sm:h-26 md:w-20 md:h-28 text-sm shadow-md';
+  }
+});
+
+const roundedClass = computed(() => {
+  switch (props.size) {
+    case 'sm':
+      return 'rounded-md';
+    case 'lg':
+      return 'rounded-xl';
+    case 'md':
+    default:
+      return 'rounded-lg';
   }
 });
 </script>
@@ -48,9 +60,10 @@ const sizeClasses = computed(() => {
     class="relative select-none transition-all duration-150 cursor-pointer flex-shrink-0"
     :class="[
       sizeClasses,
+      roundedClass,
       isSelected
         ? '-translate-y-5 shadow-card-selected ring-2 ring-amber-400'
-        : 'hover:-translate-y-1 hover:ring-2 hover:ring-amber-300/90 hover:shadow-lg',
+        : 'hover:-translate-y-1 hover:ring-2 hover:ring-amber-300 hover:shadow-lg',
       isDisabled ? 'opacity-50 cursor-not-allowed filter grayscale-[20%]' : '',
     ]"
     :style="{
@@ -62,7 +75,8 @@ const sizeClasses = computed(() => {
     <!-- Card Back -->
     <div
       v-if="isBack || !card"
-      class="w-full h-full bg-gradient-to-br from-blue-700 via-indigo-900 to-slate-900 border-2 border-slate-200/40 rounded-inherit flex items-center justify-center p-1 shadow-inner overflow-hidden"
+      class="w-full h-full bg-gradient-to-br from-blue-700 via-indigo-900 to-slate-900 border-2 border-slate-200/40 flex items-center justify-center p-1 shadow-inner overflow-hidden"
+      :class="roundedClass"
     >
       <div class="w-full h-full border border-dashed border-indigo-300/30 rounded flex items-center justify-center bg-indigo-950/40">
         <div class="w-6 h-6 rounded-full border border-indigo-400/40 flex items-center justify-center">
@@ -74,8 +88,8 @@ const sizeClasses = computed(() => {
     <!-- Card Front -->
     <div
       v-else
-      class="w-full h-full bg-gradient-to-b from-white to-gray-50 border border-slate-300 rounded-inherit flex flex-col justify-between p-1 sm:p-1.5 overflow-hidden font-mono font-bold leading-tight"
-      :class="isRed ? 'text-red-600' : 'text-slate-900'"
+      class="w-full h-full bg-gradient-to-b from-white to-gray-50 border border-slate-300 flex flex-col justify-between p-1 sm:p-1.5 overflow-hidden font-mono font-bold leading-tight"
+      :class="[roundedClass, isRed ? 'text-red-600' : 'text-slate-900']"
     >
       <!-- Top Left Rank & Suit -->
       <div class="flex flex-col items-center self-start text-left leading-none">
