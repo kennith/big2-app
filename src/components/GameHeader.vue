@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Player } from '../engine/types';
 import type { Language, Translations } from '../i18n/translations';
+import CardView from './CardView.vue';
+
+const logoCard = { id: 'logo-2s', suit: 'S' as const, rank: '2' as const };
 
 interface Props {
   roundNumber: number;
@@ -27,8 +30,10 @@ const emit = defineEmits<{
   <header class="relative flex flex-col sm:flex-row items-center justify-between gap-2 px-2.5 sm:px-6 py-2 sm:py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
     <!-- Game Title & Round (Row 1 on mobile, left on desktop) -->
     <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-3">
-      <div class="flex items-center gap-1.5 font-black text-base sm:text-xl tracking-wider text-red-500">
-        <span class="text-xl sm:text-2xl">♠️</span>
+      <div class="flex items-center gap-2 font-black text-base sm:text-xl tracking-wider text-red-500 select-none">
+        <div class="flex-shrink-0 transform scale-90 sm:scale-95 origin-center">
+          <CardView :card="logoCard" size="sm" :is-interactive="false" />
+        </div>
         <span>
           {{ t.gameTitle }}
         </span>
