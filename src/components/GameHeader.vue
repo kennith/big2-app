@@ -44,8 +44,8 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <!-- Match Scores Bar (Hidden on ultra-small screens, visible on md+) -->
-    <div class="hidden md:inline-flex items-center gap-2 bg-slate-900/90 h-8 sm:h-9 px-3 rounded-xl border border-white/10 text-xs shadow-sm">
+    <!-- Match Scores Bar (Perfect horizontal center on header) -->
+    <div class="hidden lg:inline-flex items-center gap-2 bg-slate-900/90 h-8 sm:h-9 px-3.5 rounded-xl border border-white/10 text-xs shadow-sm absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none">
       <span class="text-slate-400 font-medium">{{ t.scores }}:</span>
       <div v-for="(player, idx) in players" :key="player.id" class="flex items-center gap-1.5">
         <span class="text-slate-300">{{ player.name }}:</span>
