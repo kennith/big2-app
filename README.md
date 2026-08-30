@@ -1,6 +1,6 @@
-# ♠️ Big Two (大老二 / 鋤大D / Deuces) Web Game
+# ♠️ BIG2 (大老二 / 鋤大D / Deuces) Web Game
 
-A modern, responsive, client-side **Big Two (大老二 / 鋤大D)** card game built with **Vue 3**, **TypeScript**, and **Tailwind CSS**. Play against three intelligent heuristic AI opponents directly in your browser.
+A modern, responsive, client-side **BIG2 (大老二 / 鋤大D)** card game built with **Vue 3**, **TypeScript**, and **Tailwind CSS**. Play against three intelligent heuristic AI opponents directly in your browser.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Vue 3](https://img.shields.io/badge/Vue-3.5-brightgreen.svg)
