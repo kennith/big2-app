@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import ActionControls from './components/ActionControls.vue';
 import GameHeader from './components/GameHeader.vue';
 import GameLog from './components/GameLog.vue';
@@ -67,6 +67,77 @@ function handleResetGame() {
     startNewGame();
   }
 }
+
+function handleKeyDown(event: KeyboardEvent) {
+  // Ignore when focused inside form inputs
+  const target = event.target as HTMLElement | null;
+  if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT')) {
+    return;
+  }
+
+  // Handle modal closing on Escape
+  if (showRulesModal.value || showSettingsModal.value || showHistoryModal.value) {
+    if (event.key === 'Escape') {
+      showRulesModal.value = false;
+      showSettingsModal.value = false;
+      showHistoryModal.value = false;
+    }
+    return;
+  }
+
+  const key = event.key.toLowerCase();
+
+  // Pass shortcut: 'p'
+  if (key === 'p') {
+    if (isHumanTurn.value && canPass.value) {
+      event.preventDefault();
+      pass();
+    }
+    return;
+  }
+
+  // Play shortcut: 'Enter' or ' ' (Space)
+  if (event.key === 'Enter' || event.key === ' ') {
+    if (isHumanTurn.value && validationResult.value.valid) {
+      event.preventDefault();
+      playCards();
+    }
+    return;
+  }
+
+  // Hint shortcut: 'h'
+  if (key === 'h') {
+    if (isHumanTurn.value) {
+      event.preventDefault();
+      giveHint();
+    }
+    return;
+  }
+
+  // Clear selection: 'c' or 'Escape'
+  if (key === 'c' || event.key === 'Escape') {
+    if (selectedCardIds.value.size > 0) {
+      event.preventDefault();
+      clearSelection();
+    }
+    return;
+  }
+
+  // Sort toggle shortcut: 's'
+  if (key === 's') {
+    event.preventDefault();
+    toggleSortMode();
+    return;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+});
 </script>
 
 <template>
