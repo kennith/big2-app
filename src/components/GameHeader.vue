@@ -34,18 +34,18 @@ const emit = defineEmits<{
         </span>
       </div>
 
-      <div class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300">
+      <div class="h-8 inline-flex items-center px-2.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300">
         <template v-if="currentLanguage === 'zh-TW'">
-          {{ t.round }} <span class="text-amber-400 font-bold">{{ roundNumber }}</span> 局
+          {{ t.round }} <span class="text-amber-400 font-bold mx-0.5">{{ roundNumber }}</span> 局
         </template>
         <template v-else>
-          {{ t.round }} <span class="text-amber-400 font-bold">{{ roundNumber }}</span>
+          {{ t.round }} <span class="text-amber-400 font-bold mx-0.5">{{ roundNumber }}</span>
         </template>
       </div>
     </div>
 
     <!-- Match Scores Bar (Hidden on ultra-small screens, visible on md+) -->
-    <div class="hidden md:flex items-center gap-2 bg-slate-900/90 px-3 py-1 rounded-xl border border-white/5 text-xs">
+    <div class="hidden md:flex items-center gap-2 bg-slate-900/90 h-8 px-3 rounded-xl border border-white/5 text-xs">
       <span class="text-slate-400 font-medium">{{ t.scores }}:</span>
       <div v-for="(player, idx) in players" :key="player.id" class="flex items-center gap-1">
         <span class="text-slate-300">{{ player.name }}:</span>
@@ -58,60 +58,60 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <!-- Utility Action Buttons -->
+    <!-- Utility Action Buttons (Standardized identical height h-8 sm:h-9) -->
     <div class="flex items-center gap-1.5 sm:gap-2">
       <!-- Language Toggle Button -->
       <button
         @click="emit('toggleLanguage')"
-        class="px-2.5 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-amber-300 text-xs font-bold border border-slate-700 transition flex items-center gap-1 shadow"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-amber-300 text-xs font-bold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         title="切換語言 / Switch Language"
       >
-        <span>🌐</span>
+        <span class="text-sm leading-none">🌐</span>
         <span>{{ currentLanguage === 'zh-TW' ? '繁中' : 'EN' }}</span>
       </button>
 
       <!-- Sound Toggle -->
       <button
         @click="emit('toggleSound')"
-        class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="soundEnabled ? t.muteSound : t.enableSound"
       >
-        <span class="text-sm">{{ soundEnabled ? '🔊' : '🔇' }}</span>
+        <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
       </button>
 
       <!-- Rules Button -->
       <button
         @click="emit('openRules')"
-        class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1 shadow"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         :title="t.rules"
       >
-        <span>📖</span>
+        <span class="text-sm leading-none">📖</span>
         <span class="hidden sm:inline">{{ t.rules }}</span>
       </button>
 
       <!-- History Button -->
       <button
         @click="emit('openHistory')"
-        class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1 shadow"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         :title="t.log"
       >
-        <span>📜</span>
+        <span class="text-sm leading-none">📜</span>
         <span class="hidden sm:inline">{{ t.log }}</span>
       </button>
 
       <!-- Settings Button -->
       <button
         @click="emit('openSettings')"
-        class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="t.settings"
       >
-        <span class="text-sm">⚙️</span>
+        <span class="text-sm leading-none">⚙️</span>
       </button>
 
       <!-- New Game Button -->
       <button
         @click="emit('newGame')"
-        class="px-3 py-1.5 rounded-xl bg-red-900/80 hover:bg-red-800 active:scale-95 text-red-100 text-xs font-bold border border-red-700/50 transition shadow"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-red-900/80 hover:bg-red-800 active:scale-95 text-red-100 text-xs font-bold border border-red-700/50 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="t.reset"
       >
         <span>{{ t.reset }}</span>
