@@ -268,16 +268,24 @@ export function findAllCombos(hand: Card[]): HandCombo[] {
   return combos;
 }
 
+export interface HandComboGroup {
+  id: string;
+  type: HandComboType;
+  combo: HandCombo | null;
+  cards: Card[];
+}
+
 /**
- * Sorts cards by combinations:
- * Extracts 5-card combinations first (Straight Flush, Quad, Full House, Flush, Straight),
- * then Triples (3 of a kind),
- * then Pairs (2 of a kind),
- * then remaining Singles (sorted by rank).
+ * Partitions a hand into distinct combination groups:
+ * 1. Best 5-card combinations (Straight Flush, Quad, Full House, Flush, Straight)
+ * 2. Triples
+ * 3. Pairs
+ * 4. Remaining Singles
  */
-export function sortCardsByCombo(cards: Card[]): Card[] {
+export function partitionHandByCombos(cards: Card[]): HandComboGroup[] {
   let pool = sortCardsByRank([...cards]);
-  const result: Card[] = [];
+  const groups: HandComboGroup[] = [];
+  let groupId = 0;
 
   // Step 1: Extract best 5-card combinations while pool has >= 5 cards
   while (pool.length >= 5) {
@@ -294,7 +302,13 @@ export function sortCardsByCombo(cards: Card[]): Card[] {
 
     const bestCombo = fiveCardCombos[0];
     const comboCardIds = new Set(bestCombo.cards.map((c) => c.id));
-    result.push(...sortCardsByRank(bestCombo.cards));
+    const sortedCards = sortCardsByRank(bestCombo.cards);
+    groups.push({
+      id: `group-${groupId++}`,
+      type: bestCombo.type,
+      combo: bestCombo,
+      cards: sortedCards,
+    });
     pool = pool.filter((c) => !comboCardIds.has(c.id));
   }
 
@@ -304,7 +318,14 @@ export function sortCardsByCombo(cards: Card[]): Card[] {
     if (groupCards.length >= 3) {
       const tripleCards = groupCards.slice(0, 3);
       const tripleIds = new Set(tripleCards.map((c) => c.id));
-      result.push(...sortCardsByRank(tripleCards));
+      const sortedTriple = sortCardsByRank(tripleCards);
+      const combo = identifyCombo(sortedTriple);
+      groups.push({
+        id: `group-${groupId++}`,
+        type: 'TRIPLE',
+        combo,
+        cards: sortedTriple,
+      });
       pool = pool.filter((c) => !tripleIds.has(c.id));
     }
   }
@@ -315,14 +336,39 @@ export function sortCardsByCombo(cards: Card[]): Card[] {
     if (groupCards.length >= 2) {
       const pairCards = groupCards.slice(0, 2);
       const pairIds = new Set(pairCards.map((c) => c.id));
-      result.push(...sortCardsByRank(pairCards));
+      const sortedPair = sortCardsByRank(pairCards);
+      const combo = identifyCombo(sortedPair);
+      groups.push({
+        id: `group-${groupId++}`,
+        type: 'PAIR',
+        combo,
+        cards: sortedPair,
+      });
       pool = pool.filter((c) => !pairIds.has(c.id));
     }
   }
 
-  // Step 4: Remaining are singles, sort them by rank
-  result.push(...sortCardsByRank(pool));
+  // Step 4: Remaining are singles
+  if (pool.length > 0) {
+    const sortedSingles = sortCardsByRank(pool);
+    groups.push({
+      id: `group-${groupId++}`,
+      type: 'SINGLE',
+      combo: null,
+      cards: sortedSingles,
+    });
+  }
 
-  return result;
+  return groups;
 }
+
+/**
+ * Sorts cards by combinations:
+ * Extracts 5-card combinations first, then Triples, then Pairs, then remaining Singles.
+ */
+export function sortCardsByCombo(cards: Card[]): Card[] {
+  const groups = partitionHandByCombos(cards);
+  return groups.flatMap((g) => g.cards);
+}
+
 

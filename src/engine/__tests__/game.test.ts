@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { getBotMove } from '../ai';
-import { checkFlush, findAllCombos, identifyCombo, sortCardsByCombo } from '../combos';
+import {
+  checkFlush,
+  findAllCombos,
+  identifyCombo,
+  partitionHandByCombos,
+  sortCardsByCombo,
+} from '../combos';
 import { compareCards, createDeck, dealCards, getCardValue } from '../deck';
 import { calculateRoundScores, canBeatCombo, validatePlay } from '../evaluator';
 import type { Card, Player, Trick } from '../types';
@@ -181,21 +187,44 @@ describe('Combo Identification', () => {
     const sortedByCombo = sortCardsByCombo(testHand);
     expect(sortedByCombo.length).toBe(13);
 
-    // The first 5 cards should form a valid 5-card hand (Full house of 9s full of 4s)
+    // The first 5 cards should form Full House of Js full of 10s
     const first5 = sortedByCombo.slice(0, 5);
     expect(identifyCombo(first5)?.type).toBe('FULL_HOUSE');
 
-    // The next 3 cards should form a Triple of Js
-    const next3 = sortedByCombo.slice(5, 8);
-    expect(identifyCombo(next3)?.type).toBe('TRIPLE');
-
-    // The next 2 cards should form a Pair of 10s
-    const next2 = sortedByCombo.slice(8, 10);
-    expect(identifyCombo(next2)?.type).toBe('PAIR');
+    // The next 5 cards should form Full House of 9s full of 4s
+    const next5 = sortedByCombo.slice(5, 10);
+    expect(identifyCombo(next5)?.type).toBe('FULL_HOUSE');
 
     // The remaining 3 cards should be singles: 3D, KD, 2S
     const last3 = sortedByCombo.slice(10, 13);
     expect(last3.map((c) => c.rank)).toEqual(['3', 'K', '2']);
+  });
+
+  it('partitions hand into labeled combo groups', () => {
+    const testHand: Card[] = [
+      { id: '3-D', rank: '3', suit: 'D' },
+      { id: '4-H', rank: '4', suit: 'H' },
+      { id: '4-S', rank: '4', suit: 'S' },
+      { id: '9-D', rank: '9', suit: 'D' },
+      { id: '9-C', rank: '9', suit: 'C' },
+      { id: '9-S', rank: '9', suit: 'S' },
+      { id: '10-D', rank: '10', suit: 'D' },
+      { id: '10-S', rank: '10', suit: 'S' },
+      { id: 'J-C', rank: 'J', suit: 'C' },
+      { id: 'J-H', rank: 'J', suit: 'H' },
+      { id: 'J-S', rank: 'J', suit: 'S' },
+      { id: 'K-D', rank: 'K', suit: 'D' },
+      { id: '2-S', rank: '2', suit: 'S' },
+    ];
+
+    const groups = partitionHandByCombos(testHand);
+    expect(groups.length).toBe(3);
+    expect(groups[0].type).toBe('FULL_HOUSE');
+    expect(groups[0].cards.length).toBe(5);
+    expect(groups[1].type).toBe('FULL_HOUSE');
+    expect(groups[1].cards.length).toBe(5);
+    expect(groups[2].type).toBe('SINGLE');
+    expect(groups[2].cards.length).toBe(3);
   });
 });
 

@@ -282,6 +282,21 @@ export function useBigTwo() {
     soundService.playCardSelect();
   }
 
+  /**
+   * Toggle selection of an entire combination group of cards
+   */
+  function toggleGroupSelection(cards: Card[]) {
+    if (status.value !== 'playing') return;
+    const allSelected = cards.every((c) => selectedCardIds.value.has(c.id));
+    if (allSelected) {
+      cards.forEach((c) => selectedCardIds.value.delete(c.id));
+    } else {
+      cards.forEach((c) => selectedCardIds.value.add(c.id));
+    }
+    selectedCardIds.value = new Set(selectedCardIds.value);
+    soundService.playCardSelect();
+  }
+
   function clearSelection() {
     selectedCardIds.value.clear();
     selectedCardIds.value = new Set();
@@ -614,6 +629,7 @@ export function useBigTwo() {
     startNewGame,
     startNewRound,
     toggleCardSelection,
+    toggleGroupSelection,
     clearSelection,
     playCards,
     pass,

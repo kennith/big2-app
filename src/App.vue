@@ -39,6 +39,7 @@ const {
   startNewGame,
   startNewRound,
   toggleCardSelection,
+  toggleGroupSelection,
   clearSelection,
   playCards,
   pass,
@@ -170,8 +171,10 @@ function handleResetGame() {
           :selected-card-ids="selectedCardIds"
           :is-turn="isHumanTurn"
           :sort-mode="settings.sortMode"
+          :current-language="currentLanguage"
           :t="t"
           @toggle-card="toggleCardSelection"
+          @toggle-group="toggleGroupSelection"
           @toggle-sort="toggleSortMode"
         />
       </div>
