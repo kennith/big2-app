@@ -42,10 +42,10 @@ const personalityColor = computed(() => {
 
 <template>
   <!-- Fixed width container ensuring identical sizing across North, West, and East opponents -->
-  <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[130px] sm:w-[150px] flex-shrink-0">
+  <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[100px] sm:w-[145px] flex-shrink-0">
     <!-- Player Profile Card -->
     <div
-      class="flex flex-col items-center justify-between p-2 rounded-2xl backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[142px] sm:min-h-[150px]"
+      class="flex flex-col items-center justify-between p-1.5 sm:p-2 rounded-2xl backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[132px] sm:min-h-[150px]"
       :class="[
         isActive
           ? 'border-amber-400 ring-2 ring-amber-400/50 shadow-amber-500/20 scale-105'
@@ -56,7 +56,7 @@ const personalityColor = computed(() => {
       <!-- Avatar with cards badge -->
       <div class="relative">
         <div
-          class="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-800 border-2 flex items-center justify-center text-2xl sm:text-3xl shadow-inner relative"
+          class="w-10 h-10 sm:w-13 sm:h-13 rounded-full bg-slate-800 border-2 flex items-center justify-center text-xl sm:text-3xl shadow-inner relative"
           :class="isActive ? 'border-amber-400 animate-pulse' : 'border-slate-600'"
         >
           <span>{{ player.avatar }}</span>

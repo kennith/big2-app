@@ -159,12 +159,12 @@ onBeforeUnmount(() => {
     />
 
     <!-- Main Poker Table Arena -->
-    <main class="flex-1 flex flex-col justify-between p-2 sm:p-4 max-w-7xl w-full mx-auto relative overflow-hidden">
+    <main class="flex-1 flex flex-col justify-between p-1 sm:p-4 max-w-7xl w-full mx-auto relative overflow-hidden">
       <!-- Subtle Clean Arena Backdrop -->
-      <div class="absolute inset-2 sm:inset-4 rounded-3xl bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
+      <div class="absolute inset-1 sm:inset-4 rounded-3xl bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
 
       <!-- Top Section: North Opponent (Bella / 小美) -->
-      <div class="relative z-10 flex justify-center pt-3 sm:pt-8">
+      <div class="relative z-10 flex justify-center pt-2 sm:pt-8">
         <OpponentHand
           :player="players[2]"
           :is-active="currentPlayerIndex === 2 && status === 'playing'"
@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
       </div>
 
       <!-- Center Play Area: West Opponent, Center Trick Field, East Opponent -->
-      <div class="relative z-10 grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-6 my-auto py-2 px-3 sm:px-8 w-full">
+      <div class="relative z-10 grid grid-cols-[auto_1fr_auto] items-center gap-1 sm:gap-6 my-auto py-1 sm:py-2 px-1 sm:px-8 w-full">
         <!-- West Opponent (Alex / 阿強) -->
         <div class="flex justify-start items-center">
           <OpponentHand

@@ -24,9 +24,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <header class="flex items-center justify-between px-3 sm:px-6 py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
-    <!-- Game Title & Round -->
-    <div class="flex items-center gap-2 sm:gap-3">
+  <header class="relative flex flex-col sm:flex-row items-center justify-between gap-2 px-2.5 sm:px-6 py-2 sm:py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
+    <!-- Game Title & Round (Row 1 on mobile, left on desktop) -->
+    <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-3">
       <div class="flex items-center gap-1.5 font-black text-base sm:text-xl tracking-wider text-amber-400">
         <span class="text-xl sm:text-2xl">♠️</span>
         <span class="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500 bg-clip-text text-transparent">
@@ -58,8 +58,8 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <!-- Utility Action Buttons (Standardized identical height h-8 sm:h-9) -->
-    <div class="flex items-center gap-1.5 sm:gap-2">
+    <!-- Utility Action Buttons (Row 2 on mobile, right on desktop) -->
+    <div class="flex items-center justify-center sm:justify-end gap-1.5 sm:gap-2 w-full sm:w-auto flex-wrap">
       <!-- Language Toggle Button -->
       <button
         @click="emit('toggleLanguage')"
