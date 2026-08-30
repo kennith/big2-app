@@ -128,7 +128,7 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   en: {
-    gameTitle: 'BIG 2',
+    gameTitle: 'BIG2',
     round: 'Round',
     scores: 'Scores',
     rules: 'Rules',
