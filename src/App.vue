@@ -163,8 +163,19 @@ onBeforeUnmount(() => {
       <!-- Subtle Clean Arena Backdrop -->
       <div class="absolute inset-1 sm:inset-4 rounded-3xl bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
 
-      <!-- Top Section: North Opponent (Bella / 小美) -->
-      <div class="relative z-10 flex justify-center pt-2 sm:pt-8">
+      <!-- Top Row: 3 Computer Opponents (Alex, Bella, Charlie) in a single row -->
+      <div class="relative z-10 flex items-start justify-center gap-1.5 sm:gap-4 md:gap-8 pt-2 sm:pt-4 px-1 w-full max-w-4xl mx-auto">
+        <!-- Alex / 阿強 -->
+        <OpponentHand
+          :player="players[1]"
+          :is-active="currentPlayerIndex === 1 && status === 'playing'"
+          :is-thinking="currentPlayerIndex === 1 && isBotThinking"
+          :last-action-text="lastAction?.playerIndex === 1 ? lastAction.text : null"
+          :match-score="matchScores[1]"
+          :t="t"
+        />
+
+        <!-- Bella / 小美 -->
         <OpponentHand
           :player="players[2]"
           :is-active="currentPlayerIndex === 2 && status === 'playing'"
@@ -173,46 +184,29 @@ onBeforeUnmount(() => {
           :match-score="matchScores[2]"
           :t="t"
         />
+
+        <!-- Charlie / 阿明 -->
+        <OpponentHand
+          :player="players[3]"
+          :is-active="currentPlayerIndex === 3 && status === 'playing'"
+          :is-thinking="currentPlayerIndex === 3 && isBotThinking"
+          :last-action-text="lastAction?.playerIndex === 3 ? lastAction.text : null"
+          :match-score="matchScores[3]"
+          :t="t"
+        />
       </div>
 
-      <!-- Center Play Area: West Opponent, Center Trick Field, East Opponent -->
-      <div class="relative z-10 grid grid-cols-[auto_1fr_auto] items-center gap-1 sm:gap-6 my-auto py-1 sm:py-2 px-1 sm:px-8 w-full">
-        <!-- West Opponent (Alex / 阿強) -->
-        <div class="flex justify-start items-center">
-          <OpponentHand
-            :player="players[1]"
-            :is-active="currentPlayerIndex === 1 && status === 'playing'"
-            :is-thinking="currentPlayerIndex === 1 && isBotThinking"
-            :last-action-text="lastAction?.playerIndex === 1 ? lastAction.text : null"
-            :match-score="matchScores[1]"
-            :t="t"
-          />
-        </div>
-
-        <!-- Trick Center (Current play, trick leader, pass indicator) -->
-        <div class="flex justify-center min-w-0">
-          <TrickCenter
-            :current-trick="currentTrick"
-            :pass-count="passCount"
-            :is-first-turn-of-game="isFirstTurnOfGame"
-            :current-player-name="currentPlayer.name"
-            :is-human-turn="isHumanTurn"
-            :current-language="currentLanguage"
-            :t="t"
-          />
-        </div>
-
-        <!-- East Opponent (Charlie / 阿明) -->
-        <div class="flex justify-end items-center">
-          <OpponentHand
-            :player="players[3]"
-            :is-active="currentPlayerIndex === 3 && status === 'playing'"
-            :is-thinking="currentPlayerIndex === 3 && isBotThinking"
-            :last-action-text="lastAction?.playerIndex === 3 ? lastAction.text : null"
-            :match-score="matchScores[3]"
-            :t="t"
-          />
-        </div>
+      <!-- Center Row: Trick Center Field -->
+      <div class="relative z-10 flex items-center justify-center my-auto py-2 sm:py-4 px-2 w-full">
+        <TrickCenter
+          :current-trick="currentTrick"
+          :pass-count="passCount"
+          :is-first-turn-of-game="isFirstTurnOfGame"
+          :current-player-name="currentPlayer.name"
+          :is-human-turn="isHumanTurn"
+          :current-language="currentLanguage"
+          :t="t"
+        />
       </div>
 
       <!-- Bottom Section: Action Bar & Human Hand -->
