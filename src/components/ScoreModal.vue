@@ -18,23 +18,23 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-    <div class="w-full max-w-lg bg-slate-900 border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl flex flex-col gap-4 text-slate-100">
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div class="w-full max-w-lg max-h-[92dvh] bg-slate-900 border border-amber-500/40 rounded-3xl p-4 sm:p-6 shadow-2xl flex flex-col gap-3 sm:gap-4 text-slate-100 min-h-0">
       <!-- Winner Banner -->
-      <div class="flex flex-col items-center text-center gap-1.5 pb-2 border-b border-slate-800">
-        <div class="text-4xl sm:text-5xl animate-bounce">
+      <div class="flex flex-col items-center text-center gap-1 pb-2 border-b border-slate-800 flex-shrink-0">
+        <div class="text-3xl sm:text-5xl animate-bounce">
           {{ roundResult.winnerIndex === 0 ? '🏆' : '👑' }}
         </div>
-        <h2 class="text-xl sm:text-2xl font-black text-amber-400">
+        <h2 class="text-lg sm:text-2xl font-black text-amber-400">
           {{ roundResult.winnerIndex === 0 ? t.victory : `${roundResult.winnerName} ${t.wonRound}` }}
         </h2>
-        <p class="text-xs sm:text-sm text-slate-400">
+        <p class="text-[11px] sm:text-sm text-slate-400">
           {{ t.round }} {{ roundResult.round }} {{ t.roundCompleted }}
         </p>
       </div>
 
-      <!-- Score Breakdown Table -->
-      <div class="overflow-x-auto">
+      <!-- Score Breakdown Table (Scrollable) -->
+      <div class="overflow-x-auto overflow-y-auto flex-1 min-h-0">
         <table class="w-full text-xs sm:text-sm text-left">
           <thead>
             <tr class="text-slate-400 border-b border-slate-800 text-[11px] uppercase tracking-wider">
@@ -92,11 +92,11 @@ const emit = defineEmits<{
         </table>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-3 pt-2">
+      <!-- Action Buttons (Fixed) -->
+      <div class="flex items-center gap-2.5 sm:gap-3 pt-2 flex-shrink-0">
         <button
           @click="emit('newGame')"
-          class="flex-1 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 font-bold text-xs sm:text-sm border border-slate-700 transition shadow"
+          class="flex-1 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 font-bold text-xs sm:text-sm border border-slate-700 transition shadow cursor-pointer"
         >
           {{ t.resetMatch }}
         </button>

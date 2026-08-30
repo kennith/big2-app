@@ -13,24 +13,24 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-    <div class="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-3xl p-5 sm:p-7 shadow-2xl flex flex-col max-h-[85vh] text-slate-200">
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div class="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-3xl p-4 sm:p-7 shadow-2xl flex flex-col max-h-[92dvh] text-slate-200 min-h-0">
       <!-- Modal Header -->
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div class="flex items-center justify-between pb-2 sm:pb-3 border-b border-slate-800 flex-shrink-0">
         <div class="flex items-center gap-2">
-          <span class="text-2xl">📖</span>
-          <h2 class="text-lg sm:text-xl font-bold text-amber-400">{{ t.rulesContent.title }}</h2>
+          <span class="text-xl sm:text-2xl">📖</span>
+          <h2 class="text-base sm:text-xl font-bold text-amber-400">{{ t.rulesContent.title }}</h2>
         </div>
         <button
           @click="$emit('close')"
-          class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-sm font-bold border border-slate-700 transition"
+          class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold border border-slate-700 transition cursor-pointer"
         >
           ✕
         </button>
       </div>
 
       <!-- Modal Content (Scrollable) -->
-      <div class="overflow-y-auto py-4 space-y-5 text-xs sm:text-sm leading-relaxed pr-1">
+      <div class="flex-1 overflow-y-auto min-h-0 py-3 sm:py-4 space-y-4 sm:space-y-5 text-xs sm:text-sm leading-relaxed pr-1">
         <!-- 1. Card Ranks & Suits -->
         <section class="space-y-2">
           <h3 class="font-bold text-slate-100 text-sm sm:text-base text-amber-300 flex items-center gap-1.5">
@@ -132,11 +132,11 @@ defineEmits<{
         </section>
       </div>
 
-      <!-- Modal Footer -->
-      <div class="pt-3 border-t border-slate-800 flex justify-end">
+      <!-- Modal Footer (Fixed) -->
+      <div class="pt-2 sm:pt-3 border-t border-slate-800 flex justify-end flex-shrink-0">
         <button
           @click="$emit('close')"
-          class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm transition shadow-lg"
+          class="px-5 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm transition shadow-lg cursor-pointer"
         >
           {{ t.gotIt }}
         </button>
