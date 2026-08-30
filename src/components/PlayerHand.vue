@@ -170,13 +170,13 @@ function handleSelectGroup(group: HandComboGroup) {
           <span>{{ getGroupLabel(group) }}</span>
         </div>
 
-        <!-- Cards in this combination -->
+        <!-- Cards in this combination (Compact overlap showing top-left rank & suit) -->
         <div class="flex items-center justify-center pt-0.5 px-0.5">
           <div
             v-for="(card, cardIdx) in group.cards"
             :key="card.id"
             :style="[
-              cardIdx > 0 ? (group.cards.length > 3 ? 'margin-left: -22px;' : 'margin-left: -12px;') : '',
+              cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -28px;' : 'margin-left: -24px;') : '',
               { zIndex: cardIdx + 1 }
             ]"
             class="transition-all duration-200"
