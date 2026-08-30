@@ -141,7 +141,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans">
+  <div class="h-screen h-[100dvh] max-h-[100dvh] w-full flex flex-col bg-slate-950 text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans overflow-hidden">
     <!-- Game Header Navigation -->
     <GameHeader
       :round-number="roundNumber"
@@ -159,12 +159,12 @@ onBeforeUnmount(() => {
     />
 
     <!-- Main Poker Table Arena -->
-    <main class="flex-1 flex flex-col justify-between p-1 sm:p-4 max-w-7xl w-full mx-auto relative overflow-hidden">
+    <main class="flex-1 flex flex-col justify-between p-1 sm:p-4 max-w-7xl w-full mx-auto relative overflow-hidden min-h-0">
       <!-- Subtle Clean Arena Backdrop -->
       <div class="absolute inset-1 sm:inset-4 rounded-3xl bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
 
       <!-- Top Row: 3 Computer Opponents (Alex, Bella, Charlie) in a single row -->
-      <div class="relative z-10 flex items-start justify-center gap-1.5 sm:gap-4 md:gap-8 pt-2 sm:pt-4 px-1 w-full max-w-4xl mx-auto">
+      <div class="relative z-10 flex items-start justify-center gap-1.5 sm:gap-4 md:gap-8 pt-1 sm:pt-4 px-1 w-full max-w-4xl mx-auto flex-shrink-0">
         <!-- Alex / 阿強 -->
         <OpponentHand
           :player="players[1]"
@@ -197,7 +197,7 @@ onBeforeUnmount(() => {
       </div>
 
       <!-- Center Row: Trick Center Field -->
-      <div class="relative z-10 flex items-center justify-center my-auto py-2 sm:py-4 px-2 w-full">
+      <div class="relative z-10 flex items-center justify-center my-auto py-1 sm:py-4 px-2 w-full min-h-0">
         <TrickCenter
           :current-trick="currentTrick"
           :pass-count="passCount"
@@ -210,7 +210,7 @@ onBeforeUnmount(() => {
       </div>
 
       <!-- Bottom Section: Action Bar & Human Hand -->
-      <div class="relative z-10 flex flex-col items-center gap-2 pb-2">
+      <div class="relative z-10 flex flex-col items-center gap-1 sm:gap-2 pb-1 sm:pb-2 w-full flex-shrink-0">
         <!-- Human Action Controls Bar -->
         <ActionControls
           :is-turn="isHumanTurn"

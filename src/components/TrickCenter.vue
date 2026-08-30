@@ -26,21 +26,21 @@ const localizedTrickComboName = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex flex-col items-center justify-center min-h-[170px] sm:min-h-[200px] w-full max-w-xl mx-auto px-4 py-2">
+  <div class="relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[170px] w-full max-w-xl mx-auto px-2 sm:px-4 py-1 sm:py-2">
     <!-- Center Play Field Backdrop -->
-    <div class="absolute inset-0 rounded-3xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm pointer-events-none shadow-inner"></div>
+    <div class="absolute inset-0 rounded-2xl sm:rounded-3xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm pointer-events-none shadow-inner"></div>
 
     <!-- Active Played Cards -->
-    <div v-if="hasActiveTrick && currentTrick" class="relative z-10 flex flex-col items-center gap-3">
+    <div v-if="hasActiveTrick && currentTrick" class="relative z-10 flex flex-col items-center gap-1.5 sm:gap-2.5">
       <!-- Combo Info Header Badge -->
-      <div class="flex items-center gap-2 bg-slate-900/90 border border-amber-500/40 px-3.5 py-1 rounded-full shadow-lg text-xs sm:text-sm">
+      <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-amber-500/40 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full shadow-lg text-[10px] sm:text-sm">
         <span class="text-amber-400 font-bold">{{ localizedTrickComboName }}</span>
         <span class="text-slate-400">•</span>
         <span class="text-slate-200">{{ t.playedBy }} <strong class="text-white">{{ currentTrick.playerName }}</strong></span>
       </div>
 
       <!-- Fanned Cards Stack -->
-      <div class="flex items-center justify-center pt-1 pb-2">
+      <div class="flex items-center justify-center pt-0.5 pb-1">
         <div
           v-for="(card, index) in currentTrick.cards"
           :key="card.id"
@@ -70,28 +70,28 @@ const localizedTrickComboName = computed(() => {
     </div>
 
     <!-- Empty Table / Free Play Lead State -->
-    <div v-else class="relative z-10 flex flex-col items-center gap-2 text-center p-4">
+    <div v-else class="relative z-10 flex flex-col items-center gap-1 sm:gap-2 text-center p-2 sm:p-4">
       <div
         v-if="isFirstTurnOfGame"
-        class="flex flex-col items-center gap-1 bg-amber-950/80 border border-amber-400/50 text-amber-200 px-4 py-2 rounded-2xl shadow-lg animate-pulse"
+        class="flex flex-col items-center gap-0.5 sm:gap-1 bg-amber-950/80 border border-amber-400/50 text-amber-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl shadow-lg animate-pulse"
       >
-        <div class="flex items-center gap-1.5 font-bold text-sm sm:text-base">
-          <span class="text-red-400 text-lg">♦</span>
+        <div class="flex items-center gap-1 sm:gap-1.5 font-bold text-xs sm:text-base">
+          <span class="text-red-400 text-sm sm:text-lg">♦</span>
           <span>{{ t.startingMove3D }}</span>
         </div>
-        <span class="text-xs text-amber-300/80">
+        <span class="text-[10px] sm:text-xs text-amber-300/80">
           {{ isHumanTurn ? t.mustPlay3DYou : `${currentPlayerName} ${t.mustPlay3DBot}` }}
         </span>
       </div>
 
       <div
         v-else
-        class="flex flex-col items-center gap-1 bg-slate-900/80 border border-emerald-400/40 text-emerald-200 px-4 py-2.5 rounded-2xl shadow-lg"
+        class="flex flex-col items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-emerald-400/40 text-emerald-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl shadow-lg"
       >
-        <div class="font-bold text-sm sm:text-base text-emerald-300">
+        <div class="font-bold text-xs sm:text-base text-emerald-300">
           {{ t.freePlay }}
         </div>
-        <span class="text-xs text-slate-300">
+        <span class="text-[10px] sm:text-xs text-slate-300">
           {{ isHumanTurn ? t.freePlayYou : `${currentPlayerName} ${t.freePlayBot}` }}
         </span>
       </div>

@@ -139,18 +139,18 @@ function handleSelectGroup(group: HandComboGroup) {
     <!-- Cards Row: Combo Mode (With Hints on Top of each Combo) -->
     <div
       v-if="sortMode === 'combo'"
-      class="flex items-end justify-center min-h-[140px] pt-2 pb-2 px-2 w-full overflow-x-auto gap-2 sm:gap-3"
+      class="flex items-end justify-center min-h-[105px] sm:min-h-[140px] pt-1 pb-1 px-1 w-full overflow-x-auto gap-1.5 sm:gap-3"
     >
       <div
         v-for="group in comboGroups"
         :key="group.id"
-        class="flex flex-col items-center p-1.5 rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
+        class="flex flex-col items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
       >
         <!-- Interactive Hint badge for multi-card combination -->
         <button
           v-if="group.type !== 'SINGLE'"
           @click="handleSelectGroup(group)"
-          class="mb-2 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
+          class="mb-1 sm:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
           :class="getGroupBadgeClass(group)"
           title="點擊全選/取消此組合 / Click to toggle combo selection"
         >
@@ -161,7 +161,7 @@ function handleSelectGroup(group: HandComboGroup) {
         <!-- Static info badge for singles (non-clickable) -->
         <div
           v-else
-          class="mb-2 px-2.5 py-0.5 rounded-full text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
+          class="mb-1 sm:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
           title="單張請點選個別卡牌 / Click individual cards to play a single"
         >
           <span>{{ getGroupIcon(group.type) }}</span>
@@ -169,12 +169,12 @@ function handleSelectGroup(group: HandComboGroup) {
         </div>
 
         <!-- Cards in this combination -->
-        <div class="flex items-center justify-center pt-1 px-1">
+        <div class="flex items-center justify-center pt-0.5 px-0.5">
           <div
             v-for="(card, cardIdx) in group.cards"
             :key="card.id"
             :style="[
-              cardIdx > 0 ? (group.cards.length > 3 ? 'margin-left: -24px;' : 'margin-left: -14px;') : '',
+              cardIdx > 0 ? (group.cards.length > 3 ? 'margin-left: -22px;' : 'margin-left: -12px;') : '',
               { zIndex: cardIdx + 1 }
             ]"
             class="transition-all duration-200"
@@ -193,7 +193,7 @@ function handleSelectGroup(group: HandComboGroup) {
     <!-- Cards Row: Rank / Suit Mode (Continuous Fanned Layout) -->
     <div
       v-else
-      class="flex items-center justify-center min-h-[120px] sm:min-h-[140px] pt-6 pb-2 px-4 w-full overflow-x-auto overflow-y-visible"
+      class="flex items-center justify-center min-h-[90px] sm:min-h-[140px] pt-4 sm:pt-6 pb-1 sm:pb-2 px-2 sm:px-4 w-full overflow-x-auto overflow-y-visible"
     >
       <div
         v-for="(card, index) in hand"

@@ -33,12 +33,12 @@ const suitSymbol = computed(() => {
 const sizeClasses = computed(() => {
   switch (props.size) {
     case 'sm':
-      return 'w-10 h-14 text-xs shadow';
+      return 'w-8 h-11 sm:w-10 sm:h-14 text-[10px] sm:text-xs shadow';
     case 'lg':
-      return 'w-20 h-28 sm:w-24 sm:h-34 text-base shadow-xl';
+      return 'w-16 h-22 sm:w-20 sm:h-28 md:w-24 md:h-34 text-sm sm:text-base shadow-xl';
     case 'md':
     default:
-      return 'w-14 h-20 sm:w-18 sm:h-26 md:w-20 md:h-28 text-sm shadow-md';
+      return 'w-11 h-16 sm:w-16 sm:h-23 md:w-20 md:h-28 text-xs sm:text-sm shadow-md';
   }
 });
 

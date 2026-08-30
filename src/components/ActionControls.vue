@@ -32,31 +32,31 @@ const playButtonText = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-2 w-full max-w-xl mx-auto px-4">
+  <div class="flex flex-col items-center gap-1 sm:gap-2 w-full max-w-xl mx-auto px-2 sm:px-4">
     <!-- Status message / Validation alert -->
-    <div class="min-h-[22px] flex items-center justify-center text-xs">
+    <div class="min-h-[18px] flex items-center justify-center text-[10px] sm:text-xs">
       <span
         v-if="isTurn && selectedCount > 0 && !validationResult.valid"
-        class="text-amber-400 bg-slate-900/90 px-3 py-0.5 rounded-full border border-amber-500/30 flex items-center gap-1 font-medium animate-pulse"
+        class="text-amber-400 bg-slate-900/90 px-2.5 sm:px-3 py-0.2 rounded-full border border-amber-500/30 flex items-center gap-1 font-medium animate-pulse"
       >
         ⚠️ {{ validationResult.reason }}
       </span>
       <span
         v-else-if="isTurn && selectedCount > 0 && validationResult.valid"
-        class="text-emerald-300 bg-slate-900/90 px-3 py-0.5 rounded-full border border-emerald-500/30 font-medium"
+        class="text-emerald-300 bg-slate-900/90 px-2.5 sm:px-3 py-0.2 rounded-full border border-emerald-500/30 font-medium"
       >
         ✓ {{ t.readyToPlay }} {{ selectedComboLocalizedName }}
       </span>
       <span
         v-else-if="isTurn && isFirstTurnOfGame"
-        class="text-amber-300 font-medium bg-amber-950/60 px-3 py-0.5 rounded-full border border-amber-600/30"
+        class="text-amber-300 font-medium bg-amber-950/60 px-2.5 sm:px-3 py-0.2 rounded-full border border-amber-600/30"
       >
         {{ t.lead3DAlert }}
       </span>
     </div>
 
     <!-- Action Buttons Row -->
-    <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+    <div class="flex items-center justify-center gap-1.5 sm:gap-3 flex-wrap">
       <!-- Clear Selection Button -->
       <button
         v-if="selectedCount > 0"
