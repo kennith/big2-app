@@ -57,17 +57,6 @@ const playButtonText = computed(() => {
 
     <!-- Action Buttons Row -->
     <div class="flex items-center justify-center gap-1.5 sm:gap-3 flex-wrap">
-      <!-- Clear Selection Button -->
-      <button
-        v-if="selectedCount > 0"
-        @click="emit('clear')"
-        class="px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition-all shadow cursor-pointer inline-flex items-center gap-1.5"
-        title="清除選牌 / Clear Selection (C / Esc)"
-      >
-        <span>{{ t.clear }} ({{ selectedCount }})</span>
-        <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-slate-300">C</kbd>
-      </button>
-
       <!-- Hint Button -->
       <button
         v-if="isTurn"
@@ -80,21 +69,31 @@ const playButtonText = computed(() => {
         <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/30 border border-white/20 rounded text-[10px] font-mono text-blue-100">H</kbd>
       </button>
 
-      <!-- Pass Button -->
+      <!-- Clear Button (when cards are selected) OR Pass Button (when no cards selected) -->
       <button
-        v-if="isTurn"
+        v-if="isTurn && selectedCount > 0"
+        @click="emit('clear')"
+        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition-all shadow cursor-pointer inline-flex items-center gap-1.5"
+        title="清除選牌 / Clear Selection (C / Esc)"
+      >
+        <span>{{ t.clear }} ({{ selectedCount }})</span>
+        <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-slate-300">C</kbd>
+      </button>
+
+      <button
+        v-else-if="isTurn"
         @click="emit('pass')"
-        :disabled="!canPass || selectedCount > 0"
+        :disabled="!canPass"
         class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 inline-flex items-center gap-1.5"
         :class="[
-          canPass && selectedCount === 0
+          canPass
             ? 'bg-amber-600 hover:bg-amber-500 text-white border border-amber-400/40 cursor-pointer'
             : 'bg-slate-800/50 text-slate-500 border border-slate-800 cursor-not-allowed',
         ]"
-        :title="!canPass ? t.freePlay : `${t.pass} (P)`"
+        :title="canPass ? `${t.pass} (P)` : t.freePlay"
       >
         <span>{{ t.pass }}</span>
-        <kbd v-if="canPass && selectedCount === 0" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-amber-200">P</kbd>
+        <kbd v-if="canPass" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-amber-200">P</kbd>
       </button>
 
       <!-- Play Cards Primary Button -->
