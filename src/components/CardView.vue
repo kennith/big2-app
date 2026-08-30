@@ -8,6 +8,7 @@ interface Props {
   isBack?: boolean;
   isSelected?: boolean;
   isDisabled?: boolean;
+  isInteractive?: boolean;
   size?: 'sm' | 'md' | 'lg';
   rotation?: number;
 }
@@ -16,6 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
   isBack: false,
   isSelected: false,
   isDisabled: false,
+  isInteractive: true,
   size: 'md',
   rotation: 0,
 });
@@ -57,17 +59,21 @@ const roundedClass = computed(() => {
 
 <template>
   <div
-    class="relative select-none transition-all duration-150 cursor-pointer flex-shrink-0"
+    class="relative select-none transition-all duration-150 flex-shrink-0"
     :class="[
       sizeClasses,
       roundedClass,
-      isSelected
+      isInteractive && !isDisabled ? 'cursor-pointer' : 'cursor-default pointer-events-none',
+      isInteractive && isSelected
         ? '-translate-y-5 shadow-card-selected ring-2 ring-amber-400'
-        : 'hover:-translate-y-1 hover:ring-2 hover:ring-amber-300 hover:shadow-lg',
+        : '',
+      isInteractive && !isSelected && !isDisabled
+        ? 'hover:-translate-y-1 hover:ring-2 hover:ring-amber-300 hover:shadow-lg'
+        : '',
       isDisabled ? 'opacity-50 cursor-not-allowed filter grayscale-[20%]' : '',
     ]"
     :style="{
-      transform: isSelected
+      transform: isInteractive && isSelected
         ? `translateY(-20px) rotate(${rotation}deg)`
         : `rotate(${rotation}deg)`,
     }"

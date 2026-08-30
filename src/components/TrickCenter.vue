@@ -50,7 +50,7 @@ const localizedTrickComboName = computed(() => {
             zIndex: index + 1,
           }"
         >
-          <CardView :card="card" size="md" />
+          <CardView :card="card" size="md" :is-interactive="false" />
         </div>
       </div>
 

@@ -125,7 +125,7 @@ const personalityColor = computed(() => {
           transform: `rotate(${(index - (visibleCardCount + 1) / 2) * 3}deg)`,
         }"
       >
-        <CardView is-back size="sm" />
+        <CardView is-back size="sm" :is-interactive="false" />
       </div>
     </div>
   </div>

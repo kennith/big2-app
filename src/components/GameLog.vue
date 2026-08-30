@@ -68,7 +68,7 @@ const emit = defineEmits<{
           <!-- Card mini pills if cards were played -->
           <div v-if="entry.cards && entry.cards.length > 0" class="flex flex-wrap gap-1 items-center mt-1">
             <div v-for="card in entry.cards" :key="card.id" class="transform scale-75 origin-top-left -mr-3 -mb-4">
-              <CardView :card="card" size="sm" />
+              <CardView :card="card" size="sm" :is-interactive="false" />
             </div>
           </div>
         </div>
