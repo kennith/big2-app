@@ -209,8 +209,8 @@ onBeforeUnmount(() => {
         />
       </div>
 
-      <!-- Bottom Section: Action Bar & Human Hand -->
-      <div class="relative z-10 flex flex-col items-center gap-1 sm:gap-2 pb-1 sm:pb-2 w-full flex-shrink-0">
+      <!-- Bottom Section: Action Bar & Human Hand (Fits 1/3 of screen height on mobile) -->
+      <div class="relative z-10 flex flex-col items-center justify-between h-[33.333dvh] sm:h-auto pb-1 sm:pb-2 w-full flex-shrink-0 min-h-0">
         <!-- Human Action Controls Bar -->
         <ActionControls
           :is-turn="isHumanTurn"

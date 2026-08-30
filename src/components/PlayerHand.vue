@@ -112,9 +112,9 @@ function handleSelectGroup(group: HandComboGroup) {
 </script>
 
 <template>
-  <div class="flex flex-col items-center w-full max-w-5xl mx-auto px-2">
+  <div class="flex-1 flex flex-col items-center justify-between w-full max-w-5xl mx-auto px-1 sm:px-2 min-h-0">
     <!-- Hand Header / Quick Controls -->
-    <div class="flex items-center justify-between w-full max-w-2xl px-3 py-1 mb-1 text-xs text-slate-300">
+    <div class="flex items-center justify-between w-full max-w-2xl px-2 sm:px-3 py-0.5 mb-0.5 text-xs text-slate-300 flex-shrink-0">
       <div class="flex items-center gap-2">
         <span class="font-bold text-slate-100 flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full" :class="isTurn ? 'bg-emerald-400 animate-ping' : 'bg-slate-500'"></span>
@@ -130,7 +130,7 @@ function handleSelectGroup(group: HandComboGroup) {
 
       <button
         @click="emit('toggleSort')"
-        class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-slate-700 text-xs text-amber-300 font-medium shadow-sm cursor-pointer"
+        class="flex items-center gap-1 px-2.5 py-0.5 sm:py-1 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-slate-700 text-[11px] sm:text-xs text-amber-300 font-medium shadow-sm cursor-pointer"
         title="Change card sorting"
       >
         <span>{{ t.sort }}:</span>
@@ -141,7 +141,7 @@ function handleSelectGroup(group: HandComboGroup) {
     <!-- Cards Row: Combo Mode (With Hints on Top of each Combo) -->
     <div
       v-if="sortMode === 'combo'"
-      class="flex items-end justify-center min-h-[105px] sm:min-h-[140px] pt-1 pb-1 px-1 w-full overflow-x-auto gap-1.5 sm:gap-3"
+      class="flex items-end justify-center flex-1 min-h-0 pt-0.5 pb-0.5 px-1 w-full overflow-x-auto gap-1.5 sm:gap-3"
     >
       <div
         v-for="group in comboGroups"
@@ -195,7 +195,7 @@ function handleSelectGroup(group: HandComboGroup) {
     <!-- Cards Row: Rank / Suit Mode (Continuous Fanned Layout) -->
     <div
       v-else
-      class="flex items-center justify-center min-h-[90px] sm:min-h-[140px] pt-4 sm:pt-6 pb-1 sm:pb-2 px-2 sm:px-4 w-full overflow-x-auto overflow-y-visible"
+      class="flex items-center justify-center flex-1 min-h-0 pt-2 sm:pt-6 pb-0.5 sm:pb-2 px-1 sm:px-4 w-full overflow-x-auto overflow-y-visible"
     >
       <div
         v-for="(card, index) in hand"
