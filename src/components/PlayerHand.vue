@@ -18,6 +18,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'toggleCard', card: Card): void;
+  (e: 'selectSingleCard', card: Card, otherSingles: Card[]): void;
   (e: 'toggleGroup', cards: Card[]): void;
   (e: 'toggleSort'): void;
 }>();
@@ -146,6 +147,15 @@ function handleSelectGroup(group: HandComboGroup) {
   if (group.type === 'SINGLE') return; // Cannot select multiple singles as a combo play
   emit('toggleGroup', group.cards);
 }
+
+function handleCardClickInGroup(card: Card, group: HandComboGroup) {
+  if (group.type === 'SINGLE') {
+    const otherSingles = group.cards.filter((c) => c.id !== card.id);
+    emit('selectSingleCard', card, otherSingles);
+  } else {
+    emit('toggleCard', card);
+  }
+}
 </script>
 
 <template>
@@ -236,7 +246,7 @@ function handleSelectGroup(group: HandComboGroup) {
               :card="card"
               :is-selected="selectedCardIds.has(card.id)"
               size="md"
-              @click="emit('toggleCard', card)"
+              @click="handleCardClickInGroup(card, group)"
             />
           </div>
         </div>

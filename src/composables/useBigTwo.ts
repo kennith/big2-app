@@ -283,6 +283,21 @@ export function useBigTwo() {
   }
 
   /**
+   * Toggle a single card in combination single group, ensuring at most 1 card is selected from other singles
+   */
+  function selectSingleCard(card: Card, otherSingles: Card[]) {
+    if (status.value !== 'playing') return;
+    if (selectedCardIds.value.has(card.id)) {
+      selectedCardIds.value.delete(card.id);
+    } else {
+      otherSingles.forEach((c) => selectedCardIds.value.delete(c.id));
+      selectedCardIds.value.add(card.id);
+    }
+    selectedCardIds.value = new Set(selectedCardIds.value);
+    soundService.playCardSelect();
+  }
+
+  /**
    * Toggle selection of an entire combination group of cards
    */
   function toggleGroupSelection(cards: Card[]) {
@@ -629,6 +644,7 @@ export function useBigTwo() {
     startNewGame,
     startNewRound,
     toggleCardSelection,
+    selectSingleCard,
     toggleGroupSelection,
     clearSelection,
     playCards,

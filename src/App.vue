@@ -39,6 +39,7 @@ const {
   startNewGame,
   startNewRound,
   toggleCardSelection,
+  selectSingleCard,
   toggleGroupSelection,
   clearSelection,
   playCards,
@@ -236,6 +237,7 @@ onBeforeUnmount(() => {
           :current-language="currentLanguage"
           :t="t"
           @toggle-card="toggleCardSelection"
+          @select-single-card="selectSingleCard"
           @toggle-group="toggleGroupSelection"
           @toggle-sort="toggleSortMode"
         />
