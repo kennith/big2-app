@@ -108,9 +108,9 @@ function handleResetGame() {
       </div>
 
       <!-- Center Play Area: West Opponent, Center Trick Field, East Opponent -->
-      <div class="relative z-10 grid grid-cols-1 md:grid-cols-[160px_1fr_160px] items-center gap-2 sm:gap-4 my-auto py-2">
+      <div class="relative z-10 grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-6 my-auto py-2 px-3 sm:px-8 w-full">
         <!-- West Opponent (Alex / 阿強) -->
-        <div class="flex justify-start md:justify-center">
+        <div class="flex justify-start items-center">
           <OpponentHand
             :player="players[1]"
             :is-active="currentPlayerIndex === 1 && status === 'playing'"
@@ -122,7 +122,7 @@ function handleResetGame() {
         </div>
 
         <!-- Trick Center (Current play, trick leader, pass indicator) -->
-        <div class="flex justify-center">
+        <div class="flex justify-center min-w-0">
           <TrickCenter
             :current-trick="currentTrick"
             :pass-count="passCount"
@@ -135,7 +135,7 @@ function handleResetGame() {
         </div>
 
         <!-- East Opponent (Charlie / 阿明) -->
-        <div class="flex justify-end md:justify-center">
+        <div class="flex justify-end items-center">
           <OpponentHand
             :player="players[3]"
             :is-active="currentPlayerIndex === 3 && status === 'playing'"
