@@ -48,7 +48,9 @@ const sizeClasses = computed(() => {
     class="relative select-none transition-all duration-150 cursor-pointer flex-shrink-0"
     :class="[
       sizeClasses,
-      isSelected ? '-translate-y-5 shadow-card-selected ring-2 ring-amber-400' : 'hover:-translate-y-1',
+      isSelected
+        ? '-translate-y-5 shadow-card-selected ring-2 ring-amber-400'
+        : 'hover:-translate-y-1 hover:ring-2 hover:ring-amber-300/90 hover:shadow-lg',
       isDisabled ? 'opacity-50 cursor-not-allowed filter grayscale-[20%]' : '',
     ]"
     :style="{
