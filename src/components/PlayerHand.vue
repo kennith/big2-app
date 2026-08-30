@@ -69,9 +69,11 @@ const currentSortLabel = computed(() => {
       <div
         v-for="(card, index) in hand"
         :key="card.id"
-        :style="index > 0 ? overlapMargin : ''"
+        :style="[
+          index > 0 ? overlapMargin : '',
+          { zIndex: index + 1 }
+        ]"
         class="transition-all duration-200"
-        :class="selectedCardIds.has(card.id) ? 'z-20' : 'z-10'"
       >
         <CardView
           :card="card"
