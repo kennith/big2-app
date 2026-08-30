@@ -96,7 +96,7 @@ function handleResetGame() {
       </div>
 
       <!-- Top Section: North Opponent (Bella / 小美) -->
-      <div class="relative z-10 flex justify-center pt-2">
+      <div class="relative z-10 flex justify-center pt-3 sm:pt-8">
         <OpponentHand
           :player="players[2]"
           :is-active="currentPlayerIndex === 2 && status === 'playing'"
