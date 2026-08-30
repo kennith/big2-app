@@ -371,7 +371,7 @@ export function useBigTwo() {
    * Human passes turn
    */
   function pass() {
-    if (!canPass.value) return;
+    if (!canPass.value || selectedCardIds.value.size > 0) return;
 
     passCount.value += 1;
     lastAction.value = {

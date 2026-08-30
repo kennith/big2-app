@@ -84,17 +84,17 @@ const playButtonText = computed(() => {
       <button
         v-if="isTurn"
         @click="emit('pass')"
-        :disabled="!canPass"
+        :disabled="!canPass || selectedCount > 0"
         class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 inline-flex items-center gap-1.5"
         :class="[
-          canPass
+          canPass && selectedCount === 0
             ? 'bg-amber-600 hover:bg-amber-500 text-white border border-amber-400/40 cursor-pointer'
             : 'bg-slate-800/50 text-slate-500 border border-slate-800 cursor-not-allowed',
         ]"
-        :title="canPass ? `${t.pass} (P)` : t.freePlay"
+        :title="!canPass ? t.freePlay : `${t.pass} (P)`"
       >
         <span>{{ t.pass }}</span>
-        <kbd v-if="canPass" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-amber-200">P</kbd>
+        <kbd v-if="canPass && selectedCount === 0" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-amber-200">P</kbd>
       </button>
 
       <!-- Play Cards Primary Button -->

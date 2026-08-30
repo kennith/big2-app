@@ -90,7 +90,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
   // Pass shortcut: 'p'
   if (key === 'p') {
-    if (isHumanTurn.value && canPass.value) {
+    if (isHumanTurn.value && canPass.value && selectedCardIds.value.size === 0) {
       event.preventDefault();
       pass();
     }
