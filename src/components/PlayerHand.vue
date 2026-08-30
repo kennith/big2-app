@@ -30,7 +30,7 @@ const overlapMargin = computed(() => {
   if (count <= 5) return 'margin-left: -12px;';
   if (count <= 8) return 'margin-left: -16px;';
   if (count <= 11) return 'margin-left: -20px;';
-  return 'margin-left: -24px;';
+  return 'margin-left: -26px;';
 });
 
 const currentSortLabel = computed(() => {
@@ -187,7 +187,7 @@ function handleSelectGroup(group: HandComboGroup) {
             v-for="(card, cardIdx) in group.cards"
             :key="card.id"
             :style="[
-              cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -28px;' : 'margin-left: -24px;') : '',
+              cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -32px;' : 'margin-left: -26px;') : '',
               { zIndex: cardIdx + 1 }
             ]"
             class="transition-all duration-200"
