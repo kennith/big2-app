@@ -42,7 +42,7 @@ const personalityColor = computed(() => {
 
 <template>
   <!-- Responsive container ensuring identical sizing across all 3 opponents in the top row -->
-  <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[95px] sm:w-[135px] md:w-[150px] flex-shrink-0">
+  <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[96px] min-[370px]:w-[108px] sm:w-[135px] md:w-[150px] flex-shrink-0">
     <!-- Player Profile Card -->
     <div
       class="flex flex-col items-center justify-between p-1.5 sm:p-2 rounded-xl sm:rounded-2xl backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[120px] sm:min-h-[145px]"

@@ -26,10 +26,10 @@ const emit = defineEmits<{
 // Dynamic negative overlap margin based on number of cards in hand
 const overlapMargin = computed(() => {
   const count = props.hand.length;
-  if (count <= 5) return 'margin-left: 4px; margin-right: 4px;';
-  if (count <= 8) return 'margin-left: -12px;';
-  if (count <= 11) return 'margin-left: -20px;';
-  return 'margin-left: -28px;';
+  if (count <= 4) return 'margin-left: 3px; margin-right: 3px;';
+  if (count <= 7) return 'margin-left: -14px;';
+  if (count <= 10) return 'margin-left: -22px;';
+  return 'margin-left: -32px;';
 });
 
 const currentSortLabel = computed(() => {
