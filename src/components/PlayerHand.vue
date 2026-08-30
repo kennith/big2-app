@@ -18,7 +18,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'toggleCard', card: Card): void;
-  (e: 'selectSingleCard', card: Card, otherSingles: Card[]): void;
+  (e: 'selectSingleCard', card: Card): void;
   (e: 'toggleGroup', cards: Card[]): void;
   (e: 'toggleSort'): void;
 }>();
@@ -150,8 +150,7 @@ function handleSelectGroup(group: HandComboGroup) {
 
 function handleCardClickInGroup(card: Card, group: HandComboGroup) {
   if (group.type === 'SINGLE') {
-    const otherSingles = group.cards.filter((c) => c.id !== card.id);
-    emit('selectSingleCard', card, otherSingles);
+    emit('selectSingleCard', card);
   } else {
     emit('toggleCard', card);
   }

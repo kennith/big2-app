@@ -283,30 +283,33 @@ export function useBigTwo() {
   }
 
   /**
-   * Toggle a single card in combination single group, ensuring at most 1 card is selected from other singles
+   * Select a single card in combination mode, clearing other selected cards
    */
-  function selectSingleCard(card: Card, otherSingles: Card[]) {
+  function selectSingleCard(card: Card) {
     if (status.value !== 'playing') return;
-    if (selectedCardIds.value.has(card.id)) {
-      selectedCardIds.value.delete(card.id);
+    if (selectedCardIds.value.has(card.id) && selectedCardIds.value.size === 1) {
+      selectedCardIds.value.clear();
     } else {
-      otherSingles.forEach((c) => selectedCardIds.value.delete(c.id));
-      selectedCardIds.value.add(card.id);
+      selectedCardIds.value = new Set([card.id]);
     }
     selectedCardIds.value = new Set(selectedCardIds.value);
     soundService.playCardSelect();
   }
 
   /**
-   * Toggle selection of an entire combination group of cards
+   * Toggle selection of an entire combination group of cards.
+   * Selecting a combination deselects all other cards.
    */
   function toggleGroupSelection(cards: Card[]) {
     if (status.value !== 'playing') return;
-    const allSelected = cards.every((c) => selectedCardIds.value.has(c.id));
-    if (allSelected) {
-      cards.forEach((c) => selectedCardIds.value.delete(c.id));
+    const isExactlySelected =
+      selectedCardIds.value.size === cards.length &&
+      cards.every((c) => selectedCardIds.value.has(c.id));
+
+    if (isExactlySelected) {
+      selectedCardIds.value.clear();
     } else {
-      cards.forEach((c) => selectedCardIds.value.add(c.id));
+      selectedCardIds.value = new Set(cards.map((c) => c.id));
     }
     selectedCardIds.value = new Set(selectedCardIds.value);
     soundService.playCardSelect();
