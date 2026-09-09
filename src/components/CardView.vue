@@ -37,7 +37,7 @@ const sizeClasses = computed(() => {
     case 'sm':
       return 'w-8 h-11 sm:w-10 sm:h-14 text-[10px] sm:text-xs shadow';
     case 'lg':
-      return 'w-16 h-22 sm:w-20 sm:h-28 md:w-24 md:h-34 text-sm sm:text-base shadow-xl';
+      return 'w-14 h-20 sm:w-18 sm:h-26 md:w-20 md:h-28 text-sm sm:text-base shadow-xl';
     case 'md':
     default:
       return 'w-11 h-16 sm:w-13 sm:h-18 md:w-14 md:h-20 lg:w-17 lg:h-24 xl:w-20 xl:h-28 text-xs sm:text-sm shadow-md';

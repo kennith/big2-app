@@ -44,13 +44,13 @@ const localizedTrickComboName = computed(() => {
         <div
           v-for="(card, index) in currentTrick.cards"
           :key="card.id"
-          class="transition-all duration-300 transform -mx-2 sm:-mx-3 animate-play"
+          class="transition-all duration-300 transform -mx-2 sm:-mx-3 md:-mx-4 animate-play"
           :style="{
             transform: `rotate(${(index - (currentTrick.cards.length - 1) / 2) * 5}deg)`,
             zIndex: index + 1,
           }"
         >
-          <CardView :card="card" size="md" :is-interactive="false" />
+          <CardView :card="card" size="lg" :is-interactive="false" />
         </div>
       </div>
 
