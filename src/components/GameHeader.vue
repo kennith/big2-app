@@ -18,7 +18,6 @@ defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'toggleSound'): void;
-  (e: 'toggleLanguage'): void;
   (e: 'openRules'): void;
   (e: 'openSettings'): void;
   (e: 'openHistory'): void;
@@ -88,16 +87,6 @@ const emit = defineEmits<{
 
     <!-- Utility Action Buttons (Row 2 on mobile, right on desktop) -->
     <div class="flex items-center justify-center sm:justify-end gap-1.5 sm:gap-2 w-full sm:w-auto flex-wrap">
-      <!-- Language Toggle Button -->
-      <button
-        @click="emit('toggleLanguage')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-amber-300 text-xs font-bold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
-        title="切換語言 / Switch Language"
-      >
-        <span class="text-sm leading-none">🌐</span>
-        <span>{{ currentLanguage === 'zh-TW' ? '繁中' : 'EN' }}</span>
-      </button>
-
       <!-- Sound Toggle -->
       <button
         @click="emit('toggleSound')"

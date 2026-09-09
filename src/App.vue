@@ -46,7 +46,6 @@ const {
   pass,
   giveHint,
   toggleSortMode,
-  toggleLanguage,
   setLanguage,
   setBotPersonality,
 } = useBigTwo();
@@ -153,7 +152,6 @@ onBeforeUnmount(() => {
       :current-language="currentLanguage"
       :t="t"
       @toggle-sound="handleToggleSound"
-      @toggle-language="toggleLanguage"
       @open-rules="showRulesModal = true"
       @open-settings="showSettingsModal = true"
       @open-history="showHistoryModal = true"
