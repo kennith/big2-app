@@ -45,7 +45,7 @@ const personalityColor = computed(() => {
   <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[96px] min-[370px]:w-[108px] sm:w-[135px] md:w-[150px] flex-shrink-0">
     <!-- Player Profile Card -->
     <div
-      class="flex flex-col items-center justify-between p-1 sm:p-2 rounded-xl sm:rounded-2xl backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[102px] sm:min-h-[145px]"
+      class="flex flex-col items-center justify-between p-1 sm:p-2 rounded-sm backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[102px] sm:min-h-[145px]"
       :class="[
         isActive
           ? 'border-amber-400 ring-2 ring-amber-400/50 shadow-amber-500/20 scale-105'
@@ -84,7 +84,7 @@ const personalityColor = computed(() => {
         </div>
         <div class="flex items-center justify-center gap-1 mt-0.5">
           <span
-            class="text-[8px] sm:text-[10px] px-1 sm:px-1.5 py-0.2 rounded border font-medium tracking-wider truncate max-w-full"
+            class="text-[8px] sm:text-[10px] px-1 sm:px-1.5 py-0.2 rounded-sm border font-medium tracking-wider truncate max-w-full"
             :class="personalityColor"
           >
             {{ personalityLabel }}
@@ -104,7 +104,7 @@ const personalityColor = computed(() => {
 
         <div
           v-else-if="lastActionText"
-          class="text-[9px] sm:text-[11px] px-1 sm:px-2 py-0.2 rounded-full bg-slate-800 border border-slate-700 text-slate-200 truncate max-w-full text-center"
+          class="text-[9px] sm:text-[11px] px-1 sm:px-2 py-0.2 rounded-sm bg-slate-800 border border-slate-700 text-slate-200 truncate max-w-full text-center"
         >
           {{ lastActionText }}
         </div>

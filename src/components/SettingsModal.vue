@@ -164,7 +164,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
             <div
               v-for="bot in botPlayers"
               :key="bot.id"
-              class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 p-2 rounded-xl bg-slate-900/60 border border-slate-800"
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 p-2 rounded-sm bg-slate-900/60 border border-slate-800"
             >
               <div class="flex items-center gap-2">
                 <span class="text-lg">{{ bot.avatar }}</span>
