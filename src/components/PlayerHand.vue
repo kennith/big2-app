@@ -27,11 +27,11 @@ const emit = defineEmits<{
 // Ensures cards fill the entire row when full (13 cards), while never separating wider than center cards
 const overlapMargin = computed(() => {
   const count = props.hand.length;
-  if (count <= 3) return 'margin-left: -8px;';
-  if (count <= 5) return 'margin-left: -12px;';
-  if (count <= 8) return 'margin-left: -16px;';
-  if (count <= 11) return 'margin-left: -20px;';
-  return 'margin-left: -26px;';
+  if (count <= 3) return 'margin-left: -10px;';
+  if (count <= 5) return 'margin-left: -16px;';
+  if (count <= 8) return 'margin-left: -22px;';
+  if (count <= 11) return 'margin-left: -28px;';
+  return 'margin-left: -34px;';
 });
 
 const currentSortLabel = computed(() => {
@@ -247,7 +247,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
               v-for="(card, cardIdx) in group.cards"
               :key="card.id"
               :style="[
-                cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -32px;' : 'margin-left: -26px;') : '',
+                cardIdx > 0 ? (group.cards.length >= 4 ? 'margin-left: -36px;' : 'margin-left: -28px;') : '',
                 { zIndex: cardIdx + 1 }
               ]"
               class="transition-all duration-200"
@@ -255,7 +255,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
               <CardView
                 :card="card"
                 :is-selected="selectedCardIds.has(card.id)"
-                size="md"
+                size="lg"
                 @click="handleCardClickInGroup(card, group)"
               />
             </div>
@@ -288,7 +288,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
               v-for="(card, cardIdx) in group.cards"
               :key="card.id"
               :style="[
-                cardIdx > 0 ? 'margin-left: -26px;' : '',
+                cardIdx > 0 ? 'margin-left: -28px;' : '',
                 { zIndex: cardIdx + 1 }
               ]"
               class="transition-all duration-200"
@@ -296,7 +296,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
               <CardView
                 :card="card"
                 :is-selected="selectedCardIds.has(card.id)"
-                size="md"
+                size="lg"
                 @click="handleCardClickInGroup(card, group)"
               />
             </div>
@@ -322,7 +322,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
         <CardView
           :card="card"
           :is-selected="selectedCardIds.has(card.id)"
-          size="md"
+          size="lg"
           @click="emit('toggleCard', card)"
         />
       </div>
