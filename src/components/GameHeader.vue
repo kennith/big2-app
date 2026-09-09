@@ -20,12 +20,11 @@ const emit = defineEmits<{
   (e: 'toggleSound'): void;
   (e: 'openSettings'): void;
   (e: 'openHistory'): void;
-  (e: 'newGame'): void;
 }>();
 </script>
 
 <template>
-  <header class="relative flex flex-col sm:flex-row items-center justify-between gap-2 px-2.5 sm:px-6 py-2 sm:py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
+  <header class="relative flex items-center justify-between gap-2 px-2.5 sm:px-6 py-2 sm:py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
     <!-- Game Title, Round, and Settings (Row 1 on mobile, left on desktop) -->
     <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-3">
       <!-- Left: Logo & Game Title -->
@@ -93,31 +92,22 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <!-- Utility Action Buttons (Row 2 on mobile, right on desktop) -->
-    <div class="flex items-center justify-center sm:justify-end gap-1.5 sm:gap-2 w-full sm:w-auto flex-wrap">
-      <!-- New Game Button -->
-      <button
-        @click="emit('newGame')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-red-900/80 hover:bg-red-800 active:scale-95 text-red-100 text-xs font-bold border border-red-700/50 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
-        :title="t.reset"
-      >
-        <span>{{ t.reset }}</span>
-      </button>
-
+    <!-- Utility Action Buttons (Desktop, right) -->
+    <div class="hidden sm:flex items-center justify-end gap-1.5 sm:gap-2">
       <!-- History Button (Desktop, on left side of sound) -->
       <button
         @click="emit('openHistory')"
-        class="hidden sm:inline-flex h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition items-center gap-1.5 shadow-sm cursor-pointer"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         :title="t.log"
       >
         <span class="text-sm leading-none">📜</span>
-        <span class="hidden sm:inline">{{ t.log }}</span>
+        <span>{{ t.log }}</span>
       </button>
 
       <!-- Sound Toggle (Desktop, between History and Settings) -->
       <button
         @click="emit('toggleSound')"
-        class="hidden sm:inline-flex h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm items-center justify-center cursor-pointer"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="soundEnabled ? t.muteSound : t.enableSound"
       >
         <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
@@ -126,7 +116,7 @@ const emit = defineEmits<{
       <!-- Settings Button (Desktop, rightmost) -->
       <button
         @click="emit('openSettings')"
-        class="hidden sm:inline-flex h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm items-center justify-center cursor-pointer"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="t.settings"
       >
         <span class="text-sm leading-none">⚙️</span>

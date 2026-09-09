@@ -18,6 +18,7 @@ const emit = defineEmits<{
   (e: 'setLanguage', lang: Language): void;
   (e: 'setBotPersonality', botId: string, personality: BotPersonality): void;
   (e: 'openRules'): void;
+  (e: 'resetGame'): void;
 }>();
 
 const botPlayers = computed(() => props.players.filter((p) => !p.isHuman));
@@ -61,6 +62,24 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
 
       <!-- Settings List (Scrollable) -->
       <div class="flex-1 overflow-y-auto min-h-0 space-y-3 sm:space-y-4 pr-1 text-xs sm:text-sm">
+        <!-- Reset Game Section (Top of settings) -->
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-red-950/40 border border-red-900/50 flex items-center justify-between gap-2">
+          <div>
+            <div class="font-semibold text-red-300 flex items-center gap-1.5">
+              <span>🔄</span>
+              <span>{{ t.reset }}</span>
+            </div>
+            <div class="text-slate-400 text-xs mt-0.5">{{ t.resetMatch }}</div>
+          </div>
+          <button
+            @click="emit('resetGame')"
+            class="py-1.5 px-3 rounded-sm bg-red-900/80 hover:bg-red-800 active:scale-95 text-red-100 border border-red-700/60 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm flex-shrink-0"
+          >
+            <span>🔄</span>
+            <span>{{ t.reset }}</span>
+          </button>
+        </div>
+
         <!-- Language Switcher Option -->
         <div class="p-2.5 sm:p-3 rounded-2xl bg-slate-800/80 border border-slate-700/60 space-y-2">
           <div class="font-semibold text-slate-100 flex items-center gap-1.5">

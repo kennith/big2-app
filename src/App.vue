@@ -65,6 +65,7 @@ function handleNextRound() {
 
 function handleResetGame() {
   if (confirm(t.value.resetConfirm)) {
+    showSettingsModal.value = false;
     startNewGame();
   }
 }
@@ -154,7 +155,6 @@ onBeforeUnmount(() => {
       @toggle-sound="handleToggleSound"
       @open-settings="showSettingsModal = true"
       @open-history="showHistoryModal = true"
-      @new-game="handleResetGame"
     />
 
     <!-- Main Poker Table Arena -->
@@ -268,6 +268,7 @@ onBeforeUnmount(() => {
       @set-language="setLanguage"
       @set-bot-personality="setBotPersonality"
       @open-rules="showSettingsModal = false; showRulesModal = true"
+      @reset-game="handleResetGame"
       @close="showSettingsModal = false"
     />
 
