@@ -61,30 +61,30 @@ const playButtonText = computed(() => {
       <button
         v-if="isTurn"
         @click="emit('hint')"
-        class="px-4 py-2 rounded-xl bg-blue-700/80 hover:bg-blue-600 active:scale-95 text-white text-xs sm:text-sm font-bold border border-blue-400/40 transition-all shadow-md inline-flex items-center gap-1.5 cursor-pointer"
+        class="px-4 py-2 rounded-sm bg-blue-700/80 hover:bg-blue-600 active:scale-95 text-white text-xs sm:text-sm font-bold border border-blue-400/40 transition-all shadow-md inline-flex items-center gap-1.5 cursor-pointer"
         title="提示牌型 / Hint (H)"
       >
         <span>💡</span>
         <span>{{ t.hint }}</span>
-        <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/30 border border-white/20 rounded text-[10px] font-mono text-blue-100">H</kbd>
+        <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/30 border border-white/20 rounded-sm text-[10px] font-mono text-blue-100">H</kbd>
       </button>
 
       <!-- Clear Button (when cards are selected) OR Pass Button (when no cards selected) -->
       <button
         v-if="isTurn && selectedCount > 0"
         @click="emit('clear')"
-        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition-all shadow cursor-pointer inline-flex items-center gap-1.5"
+        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-sm bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition-all shadow cursor-pointer inline-flex items-center gap-1.5"
         title="清除選牌 / Clear Selection (C / Esc)"
       >
         <span>{{ t.clear }}</span>
-        <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-slate-300">C</kbd>
+        <kbd class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded-sm text-[10px] font-mono text-slate-300">C</kbd>
       </button>
 
       <button
         v-else-if="isTurn"
         @click="emit('pass')"
         :disabled="!canPass"
-        class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 inline-flex items-center gap-1.5"
+        class="px-5 py-2.5 rounded-sm font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 inline-flex items-center gap-1.5"
         :class="[
           canPass
             ? 'bg-amber-600 hover:bg-amber-500 text-white border border-amber-400/40 cursor-pointer'
@@ -93,14 +93,14 @@ const playButtonText = computed(() => {
         :title="canPass ? `${t.pass} (P)` : t.freePlay"
       >
         <span>{{ t.pass }}</span>
-        <kbd v-if="canPass" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded text-[10px] font-mono text-amber-200">P</kbd>
+        <kbd v-if="canPass" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/40 border border-white/20 rounded-sm text-[10px] font-mono text-amber-200">P</kbd>
       </button>
 
       <!-- Play Cards Primary Button -->
       <button
         @click="emit('play')"
         :disabled="!isTurn || !validationResult.valid"
-        class="px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
+        class="px-6 py-2.5 rounded-sm font-black text-xs sm:text-sm transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
         :class="[
           isTurn && validationResult.valid
             ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 border border-emerald-300 ring-2 ring-emerald-400/50 shadow-emerald-900/50 cursor-pointer'
@@ -109,7 +109,7 @@ const playButtonText = computed(() => {
         :title="isTurn && validationResult.valid ? `${playButtonText} (Space / Enter)` : ''"
       >
         <span>{{ playButtonText }}</span>
-        <kbd v-if="isTurn && validationResult.valid" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/30 border border-slate-900/40 rounded text-[10px] font-mono text-slate-950 font-bold">Space</kbd>
+        <kbd v-if="isTurn && validationResult.valid" class="hidden sm:inline-block px-1.5 py-0.2 bg-black/30 border border-slate-900/40 rounded-sm text-[10px] font-mono text-slate-950 font-bold">Space</kbd>
       </button>
     </div>
   </div>

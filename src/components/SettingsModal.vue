@@ -52,7 +52,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
         </div>
         <button
           @click="$emit('close')"
-          class="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs font-bold border border-slate-700 transition cursor-pointer"
+          class="w-7 h-7 rounded-sm bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs font-bold border border-slate-700 transition cursor-pointer"
         >
           ✕
         </button>
@@ -69,7 +69,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
           <div class="grid grid-cols-2 gap-2">
             <button
               @click="emit('setLanguage', 'zh-TW')"
-              class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+              class="py-2 px-3 rounded-sm border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
               :class="
                 settings.language === 'zh-TW'
                   ? 'bg-amber-500 text-slate-950 border-amber-300'
@@ -81,7 +81,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
             </button>
             <button
               @click="emit('setLanguage', 'en')"
-              class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+              class="py-2 px-3 rounded-sm border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
               :class="
                 settings.language === 'en'
                   ? 'bg-amber-500 text-slate-950 border-amber-300'
@@ -115,7 +115,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
               ]"
               :key="preset.key"
               @click="applyPreset(preset.map)"
-              class="py-1 px-1.5 rounded-lg border text-[10px] sm:text-[11px] font-medium transition text-center cursor-pointer bg-slate-900/60 hover:bg-slate-700 border-slate-700 text-slate-300 active:scale-95"
+              class="py-1 px-1.5 rounded-sm border text-[10px] sm:text-[11px] font-medium transition text-center cursor-pointer bg-slate-900/60 hover:bg-slate-700 border-slate-700 text-slate-300 active:scale-95"
             >
               {{ preset.label }}
             </button>
@@ -137,7 +137,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
                   v-for="pType in (['aggressive', 'balanced', 'cautious'] as const)"
                   :key="pType"
                   @click="emit('setBotPersonality', bot.id, pType)"
-                  class="py-1 px-2 rounded-lg border text-[10px] sm:text-xs font-bold transition flex items-center justify-center cursor-pointer active:scale-95"
+                  class="py-1 px-2 rounded-sm border text-[10px] sm:text-xs font-bold transition flex items-center justify-center cursor-pointer active:scale-95"
                   :class="
                     (settings.botPersonalities?.[bot.id] || bot.personality) === pType
                       ? getPersonalityActiveClass(pType)
@@ -197,7 +197,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
               ]"
               :key="opt.ms"
               @click="settings.gameSpeedMs = opt.ms"
-              class="py-1.5 rounded-xl border text-xs font-semibold transition cursor-pointer"
+              class="py-1.5 rounded-sm border text-xs font-semibold transition cursor-pointer"
               :class="
                 settings.gameSpeedMs === opt.ms
                   ? 'bg-amber-500 text-slate-950 border-amber-300 font-bold'
@@ -260,7 +260,7 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
       <div class="pt-2 border-t border-slate-800 flex justify-end flex-shrink-0">
         <button
           @click="$emit('close')"
-          class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs sm:text-sm border border-slate-700 transition cursor-pointer"
+          class="px-5 py-2 rounded-sm bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs sm:text-sm border border-slate-700 transition cursor-pointer"
         >
           {{ t.close }}
         </button>

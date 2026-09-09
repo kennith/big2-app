@@ -23,7 +23,7 @@ defineEmits<{
         </div>
         <button
           @click="$emit('close')"
-          class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold border border-slate-700 transition cursor-pointer"
+          class="w-7 h-7 sm:w-8 sm:h-8 rounded-sm bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold border border-slate-700 transition cursor-pointer"
         >
           ✕
         </button>
@@ -136,7 +136,7 @@ defineEmits<{
       <div class="pt-2 sm:pt-3 border-t border-slate-800 flex justify-end flex-shrink-0">
         <button
           @click="$emit('close')"
-          class="px-5 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm transition shadow-lg cursor-pointer"
+          class="px-5 sm:px-6 py-2 sm:py-2.5 rounded-sm bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm transition shadow-lg cursor-pointer"
         >
           {{ t.gotIt }}
         </button>

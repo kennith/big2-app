@@ -96,14 +96,14 @@ const emit = defineEmits<{
       <div class="flex items-center gap-2.5 sm:gap-3 pt-2 flex-shrink-0">
         <button
           @click="emit('newGame')"
-          class="flex-1 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 font-bold text-xs sm:text-sm border border-slate-700 transition shadow cursor-pointer"
+          class="flex-1 py-2.5 sm:py-3 rounded-sm bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 font-bold text-xs sm:text-sm border border-slate-700 transition shadow cursor-pointer"
         >
           {{ t.resetMatch }}
         </button>
 
         <button
           @click="emit('nextRound')"
-          class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm border border-amber-300 shadow-xl active:scale-95 transition"
+          class="flex-1 py-3 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm border border-amber-300 shadow-xl active:scale-95 transition cursor-pointer"
         >
           {{ t.nextRound }}
         </button>

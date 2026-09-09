@@ -68,7 +68,7 @@ const emit = defineEmits<{
       <!-- Language Toggle Button -->
       <button
         @click="emit('toggleLanguage')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-amber-300 text-xs font-bold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-amber-300 text-xs font-bold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         title="切換語言 / Switch Language"
       >
         <span class="text-sm leading-none">🌐</span>
@@ -78,7 +78,7 @@ const emit = defineEmits<{
       <!-- Sound Toggle -->
       <button
         @click="emit('toggleSound')"
-        class="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="soundEnabled ? t.muteSound : t.enableSound"
       >
         <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
@@ -87,7 +87,7 @@ const emit = defineEmits<{
       <!-- Rules Button -->
       <button
         @click="emit('openRules')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         :title="t.rules"
       >
         <span class="text-sm leading-none">📖</span>
@@ -97,7 +97,7 @@ const emit = defineEmits<{
       <!-- History Button -->
       <button
         @click="emit('openHistory')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
         :title="t.log"
       >
         <span class="text-sm leading-none">📜</span>
@@ -107,7 +107,7 @@ const emit = defineEmits<{
       <!-- Settings Button -->
       <button
         @click="emit('openSettings')"
-        class="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="t.settings"
       >
         <span class="text-sm leading-none">⚙️</span>
@@ -116,7 +116,7 @@ const emit = defineEmits<{
       <!-- New Game Button -->
       <button
         @click="emit('newGame')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-red-900/80 hover:bg-red-800 active:scale-95 text-red-100 text-xs font-bold border border-red-700/50 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
+        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-red-900/80 hover:bg-red-800 active:scale-95 text-red-100 text-xs font-bold border border-red-700/50 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
         :title="t.reset"
       >
         <span>{{ t.reset }}</span>

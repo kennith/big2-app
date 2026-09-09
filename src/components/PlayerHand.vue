@@ -187,7 +187,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
         <button
           v-if="sortMode === 'combo' && distinctPartitions.length > 1"
           @click="cycleComboPartition"
-          class="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 active:scale-95 transition-all border border-amber-500/50 text-[11px] sm:text-xs text-amber-300 font-bold shadow-sm cursor-pointer"
+          class="flex items-center gap-1 px-2 py-0.5 sm:py-1 rounded-sm bg-amber-500/20 hover:bg-amber-500/30 active:scale-95 transition-all border border-amber-500/50 text-[11px] sm:text-xs text-amber-300 font-bold shadow-sm cursor-pointer"
           :title="t.switchComboLayout"
         >
           <span class="text-xs">🔀</span>
@@ -197,7 +197,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
         <!-- Sort Mode Toggle Button -->
         <button
           @click="emit('toggleSort')"
-          class="flex items-center gap-1 px-2.5 py-0.5 sm:py-1 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-slate-700 text-[11px] sm:text-xs text-amber-300 font-medium shadow-sm cursor-pointer"
+          class="flex items-center gap-1 px-2.5 py-0.5 sm:py-1 rounded-sm bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-slate-700 text-[11px] sm:text-xs text-amber-300 font-medium shadow-sm cursor-pointer"
           title="Change card sorting"
         >
           <span>{{ t.sort }}:</span>
@@ -226,7 +226,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
           <!-- Interactive Hint badge for multi-card combination -->
           <button
             @click="handleSelectGroup(group)"
-            class="mb-0.5 sm:mb-1 md:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
+            class="mb-0.5 sm:mb-1 md:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-sm text-[10px] sm:text-[11px] font-bold tracking-tight transition-all shadow-sm active:scale-95 flex items-center gap-1 cursor-pointer"
             :class="getGroupBadgeClass(group)"
             title="點擊全選/取消此組合 / Click to toggle combo selection"
           >
@@ -268,7 +268,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
         >
           <!-- Static info badge for singles (non-clickable) -->
           <div
-            class="mb-0.5 sm:mb-1 md:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
+            class="mb-0.5 sm:mb-1 md:mb-2 px-2 sm:px-2.5 py-0.2 sm:py-0.5 rounded-sm text-[10px] sm:text-[11px] font-medium tracking-tight bg-slate-800/90 text-slate-400 border border-slate-700/80 select-none flex items-center gap-1 cursor-default opacity-85 shadow-sm"
             title="單張請點選個別卡牌 / Click individual cards to play a single"
           >
             <span>{{ getGroupIcon(group.type) }}</span>

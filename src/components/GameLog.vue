@@ -26,7 +26,7 @@ const emit = defineEmits<{
         </div>
         <button
           @click="emit('close')"
-          class="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs font-bold border border-slate-700 transition"
+          class="w-7 h-7 rounded-sm bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center text-xs font-bold border border-slate-700 transition cursor-pointer"
         >
           ✕
         </button>
