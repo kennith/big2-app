@@ -30,7 +30,8 @@ const emit = defineEmits<{
   <header class="relative flex flex-col sm:flex-row items-center justify-between gap-2 px-2.5 sm:px-6 py-2 sm:py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
     <!-- Game Title, Round, and Settings (Row 1 on mobile, left on desktop) -->
     <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-3">
-      <div class="flex items-center gap-2 font-black text-base sm:text-xl tracking-wider text-red-500 select-none">
+      <!-- Left: Logo & Game Title -->
+      <div class="flex items-center gap-2 font-black text-base sm:text-xl tracking-wider text-red-500 select-none flex-1 sm:flex-initial">
         <div class="flex-shrink-0 transform scale-90 sm:scale-95 origin-center">
           <CardView :card="logoCard" size="sm" :is-interactive="false" />
         </div>
@@ -39,7 +40,8 @@ const emit = defineEmits<{
         </span>
       </div>
 
-      <div class="h-8 sm:h-9 inline-flex items-center px-2.5 sm:px-3 rounded-sm bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300 shadow-sm">
+      <!-- Middle: Round / Game Number -->
+      <div class="h-8 sm:h-9 inline-flex items-center justify-center px-2.5 sm:px-3 rounded-sm bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300 shadow-sm flex-shrink-0">
         <template v-if="currentLanguage === 'zh-TW'">
           {{ t.round }} <span class="text-amber-400 font-bold mx-0.5">{{ roundNumber }}</span> 局
         </template>
@@ -48,14 +50,16 @@ const emit = defineEmits<{
         </template>
       </div>
 
-      <!-- Settings Button (Rightmost in Row 1 on mobile) -->
-      <button
-        @click="emit('openSettings')"
-        class="sm:hidden h-8 w-8 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer ml-auto"
-        :title="t.settings"
-      >
-        <span class="text-sm leading-none">⚙️</span>
-      </button>
+      <!-- Right: Settings Button (Mobile Row 1) -->
+      <div class="flex-1 sm:flex-initial flex justify-end sm:hidden">
+        <button
+          @click="emit('openSettings')"
+          class="h-8 w-8 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
+          :title="t.settings"
+        >
+          <span class="text-sm leading-none">⚙️</span>
+        </button>
+      </div>
     </div>
 
     <!-- Match Scores Bar (Perfect horizontal center on header) -->
