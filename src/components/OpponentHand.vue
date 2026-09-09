@@ -45,7 +45,7 @@ const personalityColor = computed(() => {
   <div class="flex flex-col items-center gap-1 transition-all duration-300 relative w-[96px] min-[370px]:w-[108px] sm:w-[135px] md:w-[150px] flex-shrink-0">
     <!-- Player Profile Card -->
     <div
-      class="flex flex-col items-center justify-between p-1 sm:p-2 rounded-sm backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[102px] sm:min-h-[145px]"
+      class="flex flex-col items-center justify-between p-1 sm:p-2 rounded-sm backdrop-blur-md bg-slate-900/85 border transition-all duration-300 shadow-lg w-full min-h-[82px] sm:min-h-[145px]"
       :class="[
         isActive
           ? 'border-amber-400 ring-2 ring-amber-400/50 shadow-amber-500/20 scale-105'
@@ -95,8 +95,8 @@ const personalityColor = computed(() => {
         </div>
       </div>
 
-      <!-- Turn / Thinking / Action Bubble -->
-      <div class="min-h-[16px] sm:min-h-[22px] flex items-center justify-center w-full">
+      <!-- Turn / Thinking / Action Bubble (Hidden on mobile / < sm screens) -->
+      <div class="hidden sm:flex min-h-[22px] items-center justify-center w-full">
         <div v-if="isActive && isThinking" class="flex items-center justify-center gap-1 text-[9px] sm:text-[11px] text-amber-300 font-medium">
           <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
           <span>{{ t.thinking }}</span>
