@@ -45,15 +45,7 @@ const sizeClasses = computed(() => {
 });
 
 const roundedClass = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'rounded-md';
-    case 'lg':
-      return 'rounded-xl';
-    case 'md':
-    default:
-      return 'rounded-lg';
-  }
+  return 'rounded-sm';
 });
 </script>
 
