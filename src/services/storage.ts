@@ -12,6 +12,36 @@ export interface PlayerStats {
 const STATS_KEY = 'big2_player_stats_v1';
 const SETTINGS_KEY = 'big2_game_settings_v1';
 
+/**
+ * Detect user's browser language preference.
+ * Returns 'zh-TW' for Chinese locale variants, and 'en' for English or other locales.
+ */
+export function detectBrowserLanguage(): 'en' | 'zh-TW' {
+  try {
+    if (typeof navigator !== 'undefined') {
+      const langs = navigator.languages?.length ? navigator.languages : [navigator.language || ''];
+      for (const lang of langs) {
+        if (!lang) continue;
+        const l = lang.toLowerCase();
+        if (l.startsWith('zh')) {
+          return 'zh-TW';
+        }
+        if (l.startsWith('en')) {
+          return 'en';
+        }
+      }
+      // If primary browser locale is non-Chinese (e.g. ja, fr, es, de), fallback to English
+      const primary = (navigator.language || '').toLowerCase();
+      if (primary && !primary.startsWith('zh')) {
+        return 'en';
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to detect browser language', e);
+  }
+  return 'zh-TW';
+}
+
 export const DEFAULT_SETTINGS: GameSettings = {
   language: 'zh-TW',
   botDifficulty: 'medium',
@@ -37,12 +67,18 @@ export const DEFAULT_STATS: PlayerStats = {
 };
 
 export function loadSettings(): GameSettings {
+  const detectedLang = detectBrowserLanguage();
+  const defaultSettingsWithLocale: GameSettings = {
+    ...DEFAULT_SETTINGS,
+    language: detectedLang,
+  };
+
   try {
     const raw = localStorage.getItem(SETTINGS_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
       return {
-        ...DEFAULT_SETTINGS,
+        ...defaultSettingsWithLocale,
         ...parsed,
         botPersonalities: {
           ...DEFAULT_SETTINGS.botPersonalities,
@@ -53,7 +89,7 @@ export function loadSettings(): GameSettings {
   } catch (e) {
     console.warn('Failed to load settings from storage', e);
   }
-  return { ...DEFAULT_SETTINGS };
+  return defaultSettingsWithLocale;
 }
 
 export function saveSettings(settings: GameSettings): void {
