@@ -160,7 +160,7 @@ onBeforeUnmount(() => {
     <!-- Main Poker Table Arena -->
     <main class="flex-1 flex flex-col justify-between p-1 sm:p-4 max-w-7xl w-full mx-auto relative overflow-hidden min-h-0">
       <!-- Subtle Clean Arena Backdrop -->
-      <div class="absolute inset-1 sm:inset-4 rounded-3xl bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
+      <div class="absolute inset-1 sm:inset-4 rounded-sm bg-slate-900/25 border border-slate-800/50 pointer-events-none -z-0 shadow-inner"></div>
 
       <!-- Top Row: 3 Computer Opponents (Alex, Bella, Charlie) in a single row -->
       <div class="relative z-10 flex items-start justify-center gap-1.5 sm:gap-4 md:gap-8 pt-1 sm:pt-4 px-1 w-full max-w-4xl mx-auto flex-shrink-0">

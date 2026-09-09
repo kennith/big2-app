@@ -28,7 +28,7 @@ const localizedTrickComboName = computed(() => {
 <template>
   <div class="relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[170px] w-full max-w-xl mx-auto px-2 sm:px-4 py-1 sm:py-2">
     <!-- Center Play Field Backdrop -->
-    <div class="absolute inset-0 rounded-2xl sm:rounded-3xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm pointer-events-none shadow-inner"></div>
+    <div class="absolute inset-0 rounded-sm bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm pointer-events-none shadow-inner"></div>
 
     <!-- Active Played Cards -->
     <div v-if="hasActiveTrick && currentTrick" class="relative z-10 flex flex-col items-center gap-1.5 sm:gap-2.5">
@@ -73,7 +73,7 @@ const localizedTrickComboName = computed(() => {
     <div v-else class="relative z-10 flex flex-col items-center gap-1 sm:gap-2 text-center p-2 sm:p-4">
       <div
         v-if="isFirstTurnOfGame"
-        class="flex flex-col items-center gap-0.5 sm:gap-1 bg-amber-950/80 border border-amber-400/50 text-amber-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl shadow-lg animate-pulse"
+        class="flex flex-col items-center gap-0.5 sm:gap-1 bg-amber-950/80 border border-amber-400/50 text-amber-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-sm shadow-lg animate-pulse"
       >
         <div class="flex items-center gap-1 sm:gap-1.5 font-bold text-xs sm:text-base">
           <span class="text-red-400 text-sm sm:text-lg">♦</span>
@@ -86,7 +86,7 @@ const localizedTrickComboName = computed(() => {
 
       <div
         v-else
-        class="flex flex-col items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-emerald-400/40 text-emerald-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl shadow-lg"
+        class="flex flex-col items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-emerald-400/40 text-emerald-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-sm shadow-lg"
       >
         <div class="font-bold text-xs sm:text-base text-emerald-300">
           {{ t.freePlay }}
