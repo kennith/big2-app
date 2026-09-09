@@ -166,12 +166,19 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
 </script>
 
 <template>
-  <div class="flex-1 flex flex-col items-center justify-between w-full max-w-5xl mx-auto px-1 sm:px-2 min-h-0">
+  <div
+    class="flex-1 flex flex-col items-center justify-between w-full max-w-5xl mx-auto px-1.5 sm:px-3 py-1 sm:py-1.5 min-h-0 rounded-sm transition-all duration-300 border"
+    :class="[
+      isTurn
+        ? 'bg-emerald-950/40 border-emerald-500/40 shadow-lg shadow-emerald-950/30'
+        : 'bg-slate-900/20 border-transparent',
+    ]"
+  >
     <!-- Hand Header / Quick Controls -->
     <div class="flex items-center justify-between w-full max-w-2xl px-2 sm:px-3 py-0.5 mb-0.5 text-xs text-slate-300 flex-shrink-0">
       <div class="flex items-center gap-2">
         <span class="font-bold text-slate-100 flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full" :class="isTurn ? 'bg-emerald-400 animate-ping' : 'bg-slate-500'"></span>
+          <span class="w-2 h-2 rounded-full" :class="isTurn ? 'bg-emerald-400' : 'bg-slate-500'"></span>
           {{ t.yourHand }} ({{ hand.length }} 張)
         </span>
         <span
