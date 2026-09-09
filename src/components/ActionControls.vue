@@ -61,7 +61,7 @@ const playButtonText = computed(() => {
       <button
         v-if="isTurn"
         @click="emit('hint')"
-        class="px-4 py-2 rounded-sm bg-blue-700/80 hover:bg-blue-600 active:scale-95 text-white text-xs sm:text-sm font-bold border border-blue-400/40 transition-all shadow-md inline-flex items-center gap-1.5 cursor-pointer"
+        class="px-5 py-2.5 rounded-sm bg-blue-700/80 hover:bg-blue-600 active:scale-95 text-white text-xs sm:text-sm font-bold border border-blue-400/40 transition-all shadow-md inline-flex items-center gap-1.5 cursor-pointer"
         title="提示牌型 / Hint (H)"
       >
         <span>💡</span>
@@ -73,7 +73,7 @@ const playButtonText = computed(() => {
       <button
         v-if="isTurn && selectedCount > 0"
         @click="emit('clear')"
-        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-sm bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition-all shadow cursor-pointer inline-flex items-center gap-1.5"
+        class="px-5 py-2.5 rounded-sm bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 text-xs sm:text-sm font-bold border border-slate-700 transition-all shadow-md cursor-pointer inline-flex items-center gap-1.5"
         title="清除選牌 / Clear Selection (C / Esc)"
       >
         <span>{{ t.clear }}</span>
