@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
       </div>
 
       <!-- Center Row: Trick Center Field -->
-      <div class="relative z-10 flex items-center justify-center my-auto py-1 sm:py-4 px-2 w-full min-h-0">
+      <div class="relative z-10 flex items-center justify-center my-auto py-1 sm:py-6 md:py-8 px-2 w-full min-h-0">
         <TrickCenter
           :current-trick="currentTrick"
           :pass-count="passCount"

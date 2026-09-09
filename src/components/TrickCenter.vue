@@ -26,7 +26,7 @@ const localizedTrickComboName = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[170px] w-full max-w-xl mx-auto px-2 sm:px-4 py-1 sm:py-2">
+  <div class="relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[220px] md:min-h-[250px] w-full max-w-xl mx-auto px-2 sm:px-6 py-1 sm:py-4">
     <!-- Center Play Field Backdrop -->
     <div class="absolute inset-0 rounded-sm bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm pointer-events-none shadow-inner"></div>
 
