@@ -86,24 +86,24 @@ const roundedClass = computed(() => {
     <!-- Card Front -->
     <div
       v-else
-      class="w-full h-full bg-gradient-to-b from-white to-gray-50 border border-slate-300 flex flex-col justify-between p-1 sm:p-1.5 overflow-hidden font-mono font-bold leading-tight"
+      class="w-full h-full bg-gradient-to-b from-white to-gray-50 border border-slate-300 flex flex-col justify-between p-1 overflow-hidden font-mono font-bold leading-none"
       :class="[roundedClass, isRed ? 'text-red-600' : 'text-slate-900']"
     >
       <!-- Top Left Rank & Suit -->
       <div class="flex flex-col items-center self-start text-left leading-none">
-        <span class="text-xs sm:text-sm font-extrabold tracking-tighter">{{ card.rank }}</span>
-        <span class="text-xs sm:text-base leading-none -mt-0.5">{{ suitSymbol }}</span>
+        <span class="text-xs font-black tracking-tighter leading-none">{{ card.rank }}</span>
+        <span class="text-[11px] leading-none -mt-0.5">{{ suitSymbol }}</span>
       </div>
 
       <!-- Center Big Suit / Rank Watermark -->
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-85">
-        <span class="text-xl sm:text-2xl md:text-3xl filter drop-shadow-sm">{{ suitSymbol }}</span>
+        <span class="text-xl filter drop-shadow-sm">{{ suitSymbol }}</span>
       </div>
 
       <!-- Bottom Right Inverted Rank & Suit -->
       <div class="flex flex-col items-center self-end text-right leading-none rotate-180">
-        <span class="text-xs sm:text-sm font-extrabold tracking-tighter">{{ card.rank }}</span>
-        <span class="text-xs sm:text-base leading-none -mt-0.5">{{ suitSymbol }}</span>
+        <span class="text-xs font-black tracking-tighter leading-none">{{ card.rank }}</span>
+        <span class="text-[11px] leading-none -mt-0.5">{{ suitSymbol }}</span>
       </div>
     </div>
   </div>
