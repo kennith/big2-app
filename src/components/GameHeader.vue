@@ -28,7 +28,7 @@ const emit = defineEmits<{
 
 <template>
   <header class="relative flex flex-col sm:flex-row items-center justify-between gap-2 px-2.5 sm:px-6 py-2 sm:py-2.5 bg-slate-950/80 border-b border-white/10 backdrop-blur-md sticky top-0 z-40">
-    <!-- Game Title & Round (Row 1 on mobile, left on desktop) -->
+    <!-- Game Title, Round, and Settings (Row 1 on mobile, left on desktop) -->
     <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-3">
       <div class="flex items-center gap-2 font-black text-base sm:text-xl tracking-wider text-red-500 select-none">
         <div class="flex-shrink-0 transform scale-90 sm:scale-95 origin-center">
@@ -39,7 +39,7 @@ const emit = defineEmits<{
         </span>
       </div>
 
-      <div class="h-8 sm:h-9 inline-flex items-center px-2.5 sm:px-3 rounded-xl bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300 shadow-sm">
+      <div class="h-8 sm:h-9 inline-flex items-center px-2.5 sm:px-3 rounded-sm bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-300 shadow-sm">
         <template v-if="currentLanguage === 'zh-TW'">
           {{ t.round }} <span class="text-amber-400 font-bold mx-0.5">{{ roundNumber }}</span> 局
         </template>
@@ -47,10 +47,19 @@ const emit = defineEmits<{
           {{ t.round }} <span class="text-amber-400 font-bold mx-0.5">{{ roundNumber }}</span>
         </template>
       </div>
+
+      <!-- Settings Button (Rightmost in Row 1 on mobile) -->
+      <button
+        @click="emit('openSettings')"
+        class="sm:hidden h-8 w-8 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer ml-auto"
+        :title="t.settings"
+      >
+        <span class="text-sm leading-none">⚙️</span>
+      </button>
     </div>
 
     <!-- Match Scores Bar (Perfect horizontal center on header) -->
-    <div class="hidden lg:inline-flex items-center gap-2 bg-slate-900/90 h-8 sm:h-9 px-3.5 rounded-xl border border-white/10 text-xs shadow-sm absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none">
+    <div class="hidden lg:inline-flex items-center gap-2 bg-slate-900/90 h-8 sm:h-9 px-3.5 rounded-sm border border-white/10 text-xs shadow-sm absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none">
       <span class="text-slate-400 font-medium">{{ t.scores }}:</span>
       <div v-for="(player, idx) in players" :key="player.id" class="flex items-center gap-1.5">
         <span class="text-slate-300">{{ player.name }}:</span>
@@ -104,15 +113,6 @@ const emit = defineEmits<{
         <span class="hidden sm:inline">{{ t.log }}</span>
       </button>
 
-      <!-- Settings Button -->
-      <button
-        @click="emit('openSettings')"
-        class="h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
-        :title="t.settings"
-      >
-        <span class="text-sm leading-none">⚙️</span>
-      </button>
-
       <!-- New Game Button -->
       <button
         @click="emit('newGame')"
@@ -120,6 +120,15 @@ const emit = defineEmits<{
         :title="t.reset"
       >
         <span>{{ t.reset }}</span>
+      </button>
+
+      <!-- Settings Button (Rightmost on desktop) -->
+      <button
+        @click="emit('openSettings')"
+        class="hidden sm:inline-flex h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm items-center justify-center cursor-pointer"
+        :title="t.settings"
+      >
+        <span class="text-sm leading-none">⚙️</span>
       </button>
     </div>
   </header>
