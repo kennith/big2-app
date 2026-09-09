@@ -17,6 +17,7 @@ const emit = defineEmits<{
   (e: 'close'): void;
   (e: 'setLanguage', lang: Language): void;
   (e: 'setBotPersonality', botId: string, personality: BotPersonality): void;
+  (e: 'openRules'): void;
 }>();
 
 const botPlayers = computed(() => props.players.filter((p) => !p.isHuman));
@@ -92,6 +93,24 @@ function getPersonalityActiveClass(pType: BotPersonality): string {
               <span>English</span>
             </button>
           </div>
+        </div>
+
+        <!-- Game Rules Section -->
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between gap-2">
+          <div>
+            <div class="font-semibold text-slate-100 flex items-center gap-1.5">
+              <span>📖</span>
+              <span>{{ t.rules }}</span>
+            </div>
+            <div class="text-slate-400 text-xs mt-0.5">{{ t.rulesContent.title }}</div>
+          </div>
+          <button
+            @click="emit('openRules')"
+            class="py-1.5 px-3 rounded-sm bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-sm"
+          >
+            <span>📖</span>
+            <span>{{ t.rules }}</span>
+          </button>
         </div>
 
         <!-- Opponent Play Styles / Personalities Section -->

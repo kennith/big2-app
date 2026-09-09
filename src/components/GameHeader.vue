@@ -18,7 +18,6 @@ defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'toggleSound'): void;
-  (e: 'openRules'): void;
   (e: 'openSettings'): void;
   (e: 'openHistory'): void;
   (e: 'newGame'): void;
@@ -94,16 +93,6 @@ const emit = defineEmits<{
         :title="soundEnabled ? t.muteSound : t.enableSound"
       >
         <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
-      </button>
-
-      <!-- Rules Button -->
-      <button
-        @click="emit('openRules')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
-        :title="t.rules"
-      >
-        <span class="text-sm leading-none">📖</span>
-        <span class="hidden sm:inline">{{ t.rules }}</span>
       </button>
 
       <!-- New Game Button -->

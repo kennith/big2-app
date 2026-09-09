@@ -152,7 +152,6 @@ onBeforeUnmount(() => {
       :current-language="currentLanguage"
       :t="t"
       @toggle-sound="handleToggleSound"
-      @open-rules="showRulesModal = true"
       @open-settings="showSettingsModal = true"
       @open-history="showHistoryModal = true"
       @new-game="handleResetGame"
@@ -268,6 +267,7 @@ onBeforeUnmount(() => {
       :t="t"
       @set-language="setLanguage"
       @set-bot-personality="setBotPersonality"
+      @open-rules="showSettingsModal = false; showRulesModal = true"
       @close="showSettingsModal = false"
     />
 
