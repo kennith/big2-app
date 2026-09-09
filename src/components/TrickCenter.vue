@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Trick } from '../engine/types';
-import { formatComboDisplayName } from '../i18n/formatters';
 import type { Language, Translations } from '../i18n/translations';
 import CardView from './CardView.vue';
 
@@ -18,11 +17,6 @@ interface Props {
 const props = defineProps<Props>();
 
 const hasActiveTrick = computed(() => props.currentTrick !== null);
-
-const localizedTrickComboName = computed(() => {
-  if (!props.currentTrick) return '';
-  return formatComboDisplayName(props.currentTrick.combo, props.currentLanguage);
-});
 </script>
 
 <template>
@@ -32,11 +26,9 @@ const localizedTrickComboName = computed(() => {
 
     <!-- Active Played Cards -->
     <div v-if="hasActiveTrick && currentTrick" class="relative z-10 flex flex-col items-center gap-1.5 sm:gap-2.5">
-      <!-- Combo Info Header Badge -->
-      <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-amber-500/40 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full shadow-lg text-[10px] sm:text-sm">
-        <span class="text-amber-400 font-bold">{{ localizedTrickComboName }}</span>
-        <span class="text-slate-400">•</span>
-        <span class="text-slate-200">{{ t.playedBy }} <strong class="text-white">{{ currentTrick.playerName }}</strong></span>
+      <!-- Played By Header Badge -->
+      <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-amber-500/40 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-sm shadow-lg text-[10px] sm:text-sm">
+        <span class="text-slate-200">{{ t.playedBy }} <strong class="text-amber-300 font-bold">{{ currentTrick.playerName }}</strong></span>
       </div>
 
       <!-- Fanned Cards Stack -->
