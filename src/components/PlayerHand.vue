@@ -221,7 +221,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
         <div
           v-for="group in multiCardComboGroups"
           :key="group.id"
-          class="flex flex-col items-center justify-center p-1 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
+          class="flex flex-col items-center justify-center p-1 rounded-sm bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
         >
           <!-- Interactive Hint badge for multi-card combination -->
           <button
@@ -264,7 +264,7 @@ function handleCardClickInGroup(card: Card, group: HandComboGroup) {
         <div
           v-for="group in singleComboGroups"
           :key="group.id"
-          class="flex flex-col items-center justify-center p-1 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
+          class="flex flex-col items-center justify-center p-1 rounded-sm bg-slate-900/60 border border-slate-700/60 shadow-md transition-all hover:border-slate-500"
         >
           <!-- Static info badge for singles (non-clickable) -->
           <div
