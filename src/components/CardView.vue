@@ -40,7 +40,7 @@ const sizeClasses = computed(() => {
       return 'w-16 h-24 text-sm sm:text-base shadow-xl';
     case 'md':
     default:
-      return 'w-12 h-20 text-xs sm:text-sm shadow-md';
+      return 'w-12 h-18 text-xs sm:text-sm shadow-md';
   }
 });
 
