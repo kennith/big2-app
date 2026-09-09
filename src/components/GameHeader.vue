@@ -50,8 +50,18 @@ const emit = defineEmits<{
         </template>
       </div>
 
-      <!-- Right: Settings Button (Mobile Row 1) -->
-      <div class="flex-1 sm:flex-initial flex justify-end sm:hidden">
+      <!-- Right: History & Settings Buttons (Mobile Row 1) -->
+      <div class="flex-1 sm:flex-initial flex items-center justify-end gap-1.5 sm:hidden">
+        <!-- History Button (Mobile) -->
+        <button
+          @click="emit('openHistory')"
+          class="h-8 w-8 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
+          :title="t.log"
+        >
+          <span class="text-sm leading-none">📜</span>
+        </button>
+
+        <!-- Settings Button (Mobile) -->
         <button
           @click="emit('openSettings')"
           class="h-8 w-8 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
@@ -107,16 +117,6 @@ const emit = defineEmits<{
         <span class="hidden sm:inline">{{ t.rules }}</span>
       </button>
 
-      <!-- History Button -->
-      <button
-        @click="emit('openHistory')"
-        class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer"
-        :title="t.log"
-      >
-        <span class="text-sm leading-none">📜</span>
-        <span class="hidden sm:inline">{{ t.log }}</span>
-      </button>
-
       <!-- New Game Button -->
       <button
         @click="emit('newGame')"
@@ -126,7 +126,17 @@ const emit = defineEmits<{
         <span>{{ t.reset }}</span>
       </button>
 
-      <!-- Settings Button (Rightmost on desktop) -->
+      <!-- History Button (Desktop, on left side of settings) -->
+      <button
+        @click="emit('openHistory')"
+        class="hidden sm:inline-flex h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition items-center gap-1.5 shadow-sm cursor-pointer"
+        :title="t.log"
+      >
+        <span class="text-sm leading-none">📜</span>
+        <span class="hidden sm:inline">{{ t.log }}</span>
+      </button>
+
+      <!-- Settings Button (Desktop, rightmost) -->
       <button
         @click="emit('openSettings')"
         class="hidden sm:inline-flex h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm items-center justify-center cursor-pointer"
