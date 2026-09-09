@@ -48,7 +48,7 @@ const emit = defineEmits<{
         </template>
       </div>
 
-      <!-- Right: History & Settings Buttons (Mobile Row 1) -->
+      <!-- Right: History, Sound & Settings Buttons (Mobile Row 1) -->
       <div class="flex-1 sm:flex-initial flex items-center justify-end gap-1.5 sm:hidden">
         <!-- History Button (Mobile) -->
         <button
@@ -57,6 +57,15 @@ const emit = defineEmits<{
           :title="t.log"
         >
           <span class="text-sm leading-none">📜</span>
+        </button>
+
+        <!-- Sound Button (Mobile, between history and settings) -->
+        <button
+          @click="emit('toggleSound')"
+          class="h-8 w-8 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
+          :title="soundEnabled ? t.muteSound : t.enableSound"
+        >
+          <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
         </button>
 
         <!-- Settings Button (Mobile) -->
@@ -86,15 +95,6 @@ const emit = defineEmits<{
 
     <!-- Utility Action Buttons (Row 2 on mobile, right on desktop) -->
     <div class="flex items-center justify-center sm:justify-end gap-1.5 sm:gap-2 w-full sm:w-auto flex-wrap">
-      <!-- Sound Toggle -->
-      <button
-        @click="emit('toggleSound')"
-        class="h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm inline-flex items-center justify-center cursor-pointer"
-        :title="soundEnabled ? t.muteSound : t.enableSound"
-      >
-        <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
-      </button>
-
       <!-- New Game Button -->
       <button
         @click="emit('newGame')"
@@ -104,7 +104,7 @@ const emit = defineEmits<{
         <span>{{ t.reset }}</span>
       </button>
 
-      <!-- History Button (Desktop, on left side of settings) -->
+      <!-- History Button (Desktop, on left side of sound) -->
       <button
         @click="emit('openHistory')"
         class="hidden sm:inline-flex h-8 sm:h-9 px-2.5 sm:px-3 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-semibold border border-slate-700 transition items-center gap-1.5 shadow-sm cursor-pointer"
@@ -112,6 +112,15 @@ const emit = defineEmits<{
       >
         <span class="text-sm leading-none">📜</span>
         <span class="hidden sm:inline">{{ t.log }}</span>
+      </button>
+
+      <!-- Sound Toggle (Desktop, between History and Settings) -->
+      <button
+        @click="emit('toggleSound')"
+        class="hidden sm:inline-flex h-8 w-8 sm:h-9 sm:w-9 rounded-sm bg-slate-800/80 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition shadow-sm items-center justify-center cursor-pointer"
+        :title="soundEnabled ? t.muteSound : t.enableSound"
+      >
+        <span class="text-sm leading-none">{{ soundEnabled ? '🔊' : '🔇' }}</span>
       </button>
 
       <!-- Settings Button (Desktop, rightmost) -->
